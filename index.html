@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Стенограф — расшифровка аудио и видео в текст</title>
+  <meta name="description" content="Расшифровка совещаний, интервью, лекций и вебинаров, субтитры и протоколы. Разделение по спикерам, таймкоды, вычитка редактором. От 7 ₽ за минуту.">
+  <meta name="theme-color" content="#0a1a34">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
+       Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
+       браузер блокирует такой запрос и пишет ошибку в консоль. */
+    document.documentElement.classList.add('js');
+    if (location.protocol !== 'file:') {
+      var fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = 'fonts/golos-text-cyrillic-400-normal.woff2';
+      document.head.appendChild(fontPreload);
+    }
+  </script>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html">
+      <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+      <span>Стенограф</span>
+    </a>
+
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+      <span class="visually-hidden site-header__toggle-label">Открыть меню</span>
+    </button>
+
+    <nav class="site-nav" id="site-menu" aria-label="Основное меню">
+      <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html" aria-current="page">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Услуги</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="tariffs.html">Тарифы</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="examples.html">Примеры работ</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item site-nav__item--cta"><a class="button button--primary button--small" href="order.html">Заказать расшифровку</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <h1 class="hero__title" id="hero-title">Расшифровка аудио и видео в текст</h1>
+        <p class="hero__lead">
+          Совещания, интервью, лекции и звонки — в текст с именами участников и таймкодами.
+          Речь распознаёт нейросеть, текст вычитывает редактор. Обычный срок — сутки.
+        </p>
+
+        <form class="search hero__search" action="catalog.html" method="get" role="search">
+          <label class="visually-hidden" for="hero-search">Найти услугу по названию</label>
+          <input class="search__input" id="hero-search" name="q" type="search"
+                 placeholder="Поиск услуги" autocomplete="off">
+          <button class="button button--primary search__button" type="submit">Найти</button>
+        </form>
+
+        <div class="hero__actions">
+          <a class="button button--primary" href="order.html">Заказать расшифровку</a>
+          <a class="button button--light" href="tariffs.html#calculator">Рассчитать стоимость</a>
+        </div>
+
+        <dl class="hero__facts">
+          <div class="hero__fact">
+            <dt>за минуту записи</dt>
+            <dd>от 7 ₽</dd>
+          </div>
+          <div class="hero__fact">
+            <dt>обычный срок</dt>
+            <dd>24 часа</dd>
+          </div>
+          <div class="hero__fact">
+            <dt>точность после вычитки</dt>
+            <dd>до 99%</dd>
+          </div>
+          <div class="hero__fact">
+            <dt>форматов файлов</dt>
+            <dd>15</dd>
+          </div>
+        </dl>
+      </div>
+
+      <figure class="hero__sample">
+        <figcaption class="hero__sample-head">
+          <span class="hero__sample-title">Планёрка отдела маркетинга</span>
+          <span class="hero__sample-meta">42 мин, 3 участника, фрагмент</span>
+        </figcaption>
+        <ol class="transcript">
+          <li class="transcript__item">
+            <span class="transcript__head">
+              <time class="transcript__time">00:00:05</time>
+              <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+            </span>
+            <p class="transcript__text">Коллеги, добрый день. Сегодня три вопроса: запуск рассылки, бюджет на ноябрь и найм аналитика.</p>
+          </li>
+          <li class="transcript__item">
+            <span class="transcript__head">
+              <time class="transcript__time">00:00:19</time>
+              <span class="transcript__speaker transcript__speaker--1">Павел Игнатов</span>
+            </span>
+            <p class="transcript__text">Шаблон согласован с юристами, база выгружена. Готовы отправить в четверг утром.</p>
+          </li>
+          <li class="transcript__item">
+            <span class="transcript__head">
+              <time class="transcript__time">00:00:34</time>
+              <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+            </span>
+            <p class="transcript__text">Фиксируем четверг, десять утра. Павел, отчёт по открытиям — в пятницу.</p>
+          </li>
+          <li class="transcript__item">
+            <span class="transcript__head">
+              <time class="transcript__time">00:00:44</time>
+              <span class="transcript__speaker transcript__speaker--2">Ольга Ким</span>
+            </span>
+            <p class="transcript__text">По бюджету укладываемся, если перенести закупку ноутбуков на декабрь.</p>
+          </li>
+        </ol>
+        <p class="hero__sample-foot">
+          <a href="examples.html">Полная расшифровка и протокол</a>
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__head-text">
+          <h2 class="section__title" id="features-title">Почему Стенограф</h2>
+          <p class="section__lead">
+            Речь распознаёт нейросеть на наших серверах, текст вычитывает редактор —
+            быстро, как у машины, и аккуратно, как у стенографиста.
+          </p>
+        </div>
+      </div>
+
+      <ul class="grid grid--3">
+        <li>
+          <article class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.2c.6-.1 1.3-.2 2-.2 2.8 0 5 2.2 5 5"/></svg>
+            </span>
+            <h3 class="feature__title">Разделение по спикерам</h3>
+            <p class="feature__text">
+              Нейросеть определяет, кто говорит, а редактор подписывает участников по именам —
+              не «Спикер 1», а «Анна Морозова».
+            </p>
+          </article>
+        </li>
+        <li>
+          <article class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <h3 class="feature__title">Таймкоды</h3>
+            <p class="feature__text">
+              У каждой реплики есть время начала: по тексту легко найти нужный момент
+              и переслушать спорное место.
+            </p>
+          </article>
+        </li>
+        <li>
+          <article class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h5"/></svg>
+            </span>
+            <h3 class="feature__title">Протоколы и справки</h3>
+            <p class="feature__text">
+              Из расшифровки совещания готовим протокол с решениями и поручениями
+              или короткую справку для руководителя.
+            </p>
+          </article>
+        </li>
+        <li>
+          <article class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <h3 class="feature__title">Конфиденциальность</h3>
+            <p class="feature__text">
+              Записи обрабатываются на серверах в России и не уходят во внешние нейросети.
+              Файл можно удалить в любой момент, на тарифе «Бизнес» подписываем NDA.
+            </p>
+          </article>
+        </li>
+        <li>
+          <article class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3z"/></svg>
+            </span>
+            <h3 class="feature__title">Русский и английский</h3>
+            <p class="feature__text">
+              Отдельные модели для русской и английской речи. В смешанных записях
+              каждая реплика остаётся на языке оригинала.
+            </p>
+          </article>
+        </li>
+        <li>
+          <article class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
+            </span>
+            <h3 class="feature__title">Удобные форматы</h3>
+            <p class="feature__text">
+              DOCX и Markdown для работы, SRT и VTT для субтитров, публичная ссылка
+              на расшифровку — для коллег без регистрации.
+            </p>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="popular-title">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__head-text">
+          <h2 class="section__title" id="popular-title">Популярные услуги</h2>
+          <p class="section__lead">Чаще всего нам доверяют совещания, протоколы и интервью.</p>
+        </div>
+        <a class="section__more" href="catalog.html">Все услуги <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="grid grid--3" id="popular-services">
+        <noscript>
+          <p>Список услуг показывается с помощью JavaScript. Откройте <a href="catalog.html">каталог услуг</a>.</p>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="steps-title">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__head-text">
+          <h2 class="section__title" id="steps-title">Как сделать заказ в 3 шага</h2>
+          <p class="section__lead">Без звонков и переписки: от загрузки файла до готового текста.</p>
+        </div>
+      </div>
+
+      <ol class="steps">
+        <li class="steps__item">
+          <h3 class="steps__title">Загрузите запись</h3>
+          <p class="steps__text">
+            Перетащите аудио или видео в форму заказа или пришлите ссылку на облако.
+            Принимаем MP3, WAV, M4A, MP4, MOV и ещё 10 форматов — до 2 ГБ.
+          </p>
+        </li>
+        <li class="steps__item">
+          <h3 class="steps__title">Выберите тариф и срок</h3>
+          <p class="steps__text">
+            Калькулятор сразу покажет цену и время готовности.
+            Оплата — после того, как менеджер подтвердит заказ.
+          </p>
+        </li>
+        <li class="steps__item">
+          <h3 class="steps__title">Получите текст</h3>
+          <p class="steps__text">
+            Расшифровка придёт на почту в DOCX и Markdown. Нашли неточность —
+            исправим бесплатно в течение 14 дней.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="reviews" aria-labelledby="reviews-title">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__head-text">
+          <h2 class="section__title" id="reviews-title">Отзывы и оценки клиентов</h2>
+          <p class="section__lead">Что говорят те, кто уже отдал нам свои записи.</p>
+        </div>
+      </div>
+
+      <div class="reviews">
+        <div class="reviews__summary card">
+          <div class="reviews__average">
+            <span class="reviews__average-value" id="reviews-average">4,7</span>
+            <span id="reviews-average-stars"></span>
+          </div>
+          <p class="reviews__total">На основе <span id="reviews-total">6 отзывов</span></p>
+          <ul class="rating-bars" id="reviews-bars" aria-label="Распределение оценок"></ul>
+          <a class="button button--block" href="#review-form">Оставить отзыв</a>
+        </div>
+
+        <div class="reviews__main">
+          <ul class="reviews__list" id="reviews-list">
+            <noscript>
+              <li>Отзывы показываются с помощью JavaScript.</li>
+            </noscript>
+          </ul>
+          <button class="button" type="button" id="reviews-more" aria-controls="reviews-list" aria-expanded="false" hidden>
+            Показать все отзывы
+          </button>
+
+          <form class="review-form card form" id="review-form" novalidate aria-labelledby="review-form-title">
+            <h3 class="review-form__title" id="review-form-title">Оставить отзыв</h3>
+
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="review-name">
+                  Имя <span class="field__required" aria-hidden="true">*</span>
+                </label>
+                <input class="field__input" id="review-name" name="name" type="text" autocomplete="given-name"
+                       required minlength="2" maxlength="40" aria-describedby="review-name-error">
+                <p class="field__error" id="review-name-error"></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="review-service">
+                  Услуга <span class="field__required" aria-hidden="true">*</span>
+                </label>
+                <select class="field__input" id="review-service" name="service" required
+                        data-required="Выберите услугу, которую заказывали" aria-describedby="review-service-error">
+                  <option value="">Выберите услугу</option>
+                </select>
+                <p class="field__error" id="review-service-error"></p>
+              </div>
+            </div>
+
+            <fieldset class="star-input" aria-describedby="rating-error">
+              <legend class="star-input__legend">Оценка <span class="field__required" aria-hidden="true">*</span></legend>
+              <div class="star-input__items">
+                <input class="star-input__radio" type="radio" id="rating-1" name="rating" value="1" required
+                       data-required="Поставьте оценку от 1 до 5">
+                <label class="star-input__label" for="rating-1"><span aria-hidden="true">★</span><span class="visually-hidden">1 из 5</span></label>
+                <input class="star-input__radio" type="radio" id="rating-2" name="rating" value="2">
+                <label class="star-input__label" for="rating-2"><span aria-hidden="true">★</span><span class="visually-hidden">2 из 5</span></label>
+                <input class="star-input__radio" type="radio" id="rating-3" name="rating" value="3">
+                <label class="star-input__label" for="rating-3"><span aria-hidden="true">★</span><span class="visually-hidden">3 из 5</span></label>
+                <input class="star-input__radio" type="radio" id="rating-4" name="rating" value="4">
+                <label class="star-input__label" for="rating-4"><span aria-hidden="true">★</span><span class="visually-hidden">4 из 5</span></label>
+                <input class="star-input__radio" type="radio" id="rating-5" name="rating" value="5">
+                <label class="star-input__label" for="rating-5"><span aria-hidden="true">★</span><span class="visually-hidden">5 из 5</span></label>
+              </div>
+              <p class="field__error" id="rating-error"></p>
+            </fieldset>
+
+            <div class="field">
+              <label class="field__label" for="review-text">
+                Отзыв <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <textarea class="field__input" id="review-text" name="text" rows="4" required minlength="20" maxlength="600"
+                        aria-describedby="review-text-hint review-text-error"></textarea>
+              <p class="field__hint" id="review-text-hint">Не меньше 20 символов: что понравилось и что можно улучшить.</p>
+              <p class="field__error" id="review-text-error"></p>
+            </div>
+
+            <div class="form__actions">
+              <button class="button button--primary" type="submit">Опубликовать отзыв</button>
+            </div>
+            <p class="form__success" id="review-status" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta">
+        <div>
+          <h2 class="cta__title" id="cta-title">Сколько будет стоить ваша запись?</h2>
+          <p class="cta__text">Укажите длительность и срочность — калькулятор покажет цену и время готовности.</p>
+        </div>
+        <div class="cta__actions">
+          <a class="button button--primary" href="tariffs.html#calculator">Открыть калькулятор</a>
+          <a class="button button--light" href="examples.html">Посмотреть примеры</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+          <span>Стенограф</span>
+        </a>
+        <p class="site-footer__text">
+          Расшифровка аудио и видео в текст: совещания, интервью, лекции, вебинары, субтитры и протоколы.
+        </p>
+      </div>
+
+      <nav aria-label="Разделы сайта">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a href="catalog.html">Каталог услуг</a></li>
+          <li><a href="tariffs.html">Тарифы</a></li>
+          <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
+          <li><a href="examples.html">Примеры работ</a></li>
+          <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="contacts.html#faq">Частые вопросы</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="site-footer__title">Популярное</h2>
+        <ul class="site-footer__list">
+          <li><a href="product.html?id=meetings">Расшифровка совещаний</a></li>
+          <li><a href="product.html?id=protocols">Протокол совещания</a></li>
+          <li><a href="product.html?id=interviews">Расшифровка интервью</a></li>
+          <li><a href="product.html?id=subtitles">Создание субтитров</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__title">Контакты</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:zakaz@example.com">zakaz@example.com</a></li>
+          <li>Москва, Новослободская ул., 23</li>
+          <li>Пн–Пт 9:00–20:00, Сб 10:00–16:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Стенограф. Учебный проект, контрольная работа №3.</p>
+      <p>Автор: Брусникин Максим Александрович, ЭФБО-02-25</p>
+    </div>
+  </div>
+</footer>
+
+<a class="back-to-top" href="#top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  <span class="visually-hidden">Наверх</span>
+</a>
+</body>
+</html>

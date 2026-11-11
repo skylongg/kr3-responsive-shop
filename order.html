@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оформление заказа — Стенограф</title>
+  <meta name="description" content="Загрузите аудио- или видеофайл, выберите услугу, тариф и срочность — стоимость и срок готовности посчитаются автоматически.">
+  <meta name="theme-color" content="#0a1a34">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
+       Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
+       браузер блокирует такой запрос и пишет ошибку в консоль. */
+    document.documentElement.classList.add('js');
+    if (location.protocol !== 'file:') {
+      var fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = 'fonts/golos-text-cyrillic-400-normal.woff2';
+      document.head.appendChild(fontPreload);
+    }
+  </script>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html">
+      <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+      <span>Стенограф</span>
+    </a>
+
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+      <span class="visually-hidden site-header__toggle-label">Открыть меню</span>
+    </button>
+
+    <nav class="site-nav" id="site-menu" aria-label="Основное меню">
+      <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Услуги</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="tariffs.html">Тарифы</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="examples.html">Примеры работ</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item site-nav__item--cta"><a class="button button--primary button--small" href="order.html" aria-current="page">Заказать расшифровку</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+          <li class="breadcrumbs__item"><span aria-current="page">Оформление заказа</span></li>
+        </ol>
+      </nav>
+      <h1 class="page-head__title" id="page-title">Оформление заказа</h1>
+      <p class="page-head__lead">
+        Загрузите запись и выберите параметры — стоимость и срок готовности посчитаются автоматически.
+        Оплата после подтверждения заказа менеджером.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Форма заказа">
+    <div class="container order">
+      <form class="order__form form" id="order-form" novalidate aria-labelledby="order-form-title">
+        <h2 class="visually-hidden" id="order-form-title">Заявка на расшифровку</h2>
+        <p class="muted">Поля, отмеченные <span class="field__required" aria-hidden="true">*</span><span class="visually-hidden">звёздочкой</span>, обязательны.</p>
+
+        <fieldset class="form__section">
+          <legend class="form__section-title">1. Запись</legend>
+
+          <div class="form">
+            <div class="field">
+              <label class="dropzone" for="order-file">
+                <svg class="dropzone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4"/><path d="M7 9l5-5 5 5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+                <span class="dropzone__title">Аудио- или видеофайл <span class="field__required" aria-hidden="true">*</span></span>
+                <span class="dropzone__text">Перетащите файл сюда или нажмите, чтобы выбрать.<br>MP3, WAV, M4A, OGG, FLAC, MP4, MOV, MKV, AVI, WEBM и др. — до 2 ГБ</span>
+                <input class="dropzone__input" id="order-file" name="file" type="file"
+                       accept="audio/*,video/*,.mp3,.wav,.ogg,.flac,.m4a,.aac,.wma,.opus,.mp4,.mkv,.avi,.mov,.webm,.wmv,.flv"
+                       aria-describedby="order-file-error">
+              </label>
+              <div class="file-info" id="order-file-info" hidden>
+                <span class="file-info__name" id="order-file-name"></span>
+                <span class="file-info__size" id="order-file-size"></span>
+                <button class="button button--small" type="button" id="order-file-clear">Убрать файл</button>
+              </div>
+              <p class="field__error" id="order-file-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="order-link">Или ссылка на файл в облаке</label>
+              <input class="field__input" id="order-link" name="link" type="url" inputmode="url"
+                     placeholder="https://disk.yandex.ru/…" aria-describedby="order-link-hint order-link-error">
+              <p class="field__hint" id="order-link-hint">Для файлов больше 2 ГБ: Яндекс Диск, Облако Mail.ru или другое хранилище с открытым доступом.</p>
+              <p class="field__error" id="order-link-error"></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="order-minutes">
+                Длительность записи, минут <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input class="field__input" id="order-minutes" name="minutes" type="number" inputmode="numeric"
+                     min="1" max="6000" step="1" required data-required="Укажите длительность записи в минутах"
+                     aria-describedby="order-minutes-hint order-minutes-error">
+              <p class="field__hint" id="order-minutes-hint">Определим автоматически, когда вы выберете файл.</p>
+              <p class="field__error" id="order-minutes-error"></p>
+            </div>
+
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="order-language">Язык записи</label>
+                <select class="field__input" id="order-language" name="language">
+                  <option value="ru">Русский</option>
+                  <option value="en">Английский</option>
+                  <option value="mixed">Русский и английский</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field__label" for="order-speakers">Количество спикеров</label>
+                <select class="field__input" id="order-speakers" name="speakers">
+                  <option value="1">1</option>
+                  <option value="2-3" selected>2–3</option>
+                  <option value="4-6">4–6</option>
+                  <option value="7+">7 и больше</option>
+                  <option value="unknown">Не знаю</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form__section">
+          <legend class="form__section-title">2. Услуга и тариф</legend>
+
+          <div class="form">
+            <div class="field">
+              <label class="field__label" for="order-service">
+                Услуга <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <select class="field__input" id="order-service" name="service" required
+                      data-required="Выберите услугу" aria-describedby="order-service-error">
+                <option value="">Выберите услугу</option>
+              </select>
+              <p class="field__error" id="order-service-error"></p>
+            </div>
+
+            <fieldset class="choices">
+              <legend class="choices__legend">Тариф</legend>
+              <div class="choices__list choices__list--3">
+                <label class="choice">
+                  <input type="radio" name="tariff" value="basic">
+                  <span>
+                    <span class="choice__title">Базовый</span>
+                    <span class="choice__text">без вычитки, −30% к цене</span>
+                  </span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="tariff" value="standard" checked>
+                  <span>
+                    <span class="choice__title">Стандарт</span>
+                    <span class="choice__text">с вычиткой редактором</span>
+                  </span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="tariff" value="business">
+                  <span>
+                    <span class="choice__title">Бизнес</span>
+                    <span class="choice__text">двойная вычитка, вдвое быстрее</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="choices">
+              <legend class="choices__legend">Срочность</legend>
+              <div class="choices__list choices__list--3">
+                <label class="choice">
+                  <input type="radio" name="urgency" value="normal" checked>
+                  <span>
+                    <span class="choice__title">Обычная</span>
+                    <span class="choice__text">без наценки</span>
+                  </span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="urgency" value="urgent">
+                  <span>
+                    <span class="choice__title">Срочная</span>
+                    <span class="choice__text">+50%, вдвое быстрее</span>
+                  </span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="urgency" value="express">
+                  <span>
+                    <span class="choice__title">Экспресс</span>
+                    <span class="choice__text">×2, вчетверо быстрее</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <fieldset class="form__section">
+          <legend class="form__section-title">3. Контакты</legend>
+
+          <div class="form">
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="order-name">
+                  Имя <span class="field__required" aria-hidden="true">*</span>
+                </label>
+                <input class="field__input" id="order-name" name="name" type="text" autocomplete="name"
+                       required minlength="2" maxlength="60" data-required="Как к вам обращаться?"
+                       aria-describedby="order-name-error">
+                <p class="field__error" id="order-name-error"></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="order-email">
+                  E-mail <span class="field__required" aria-hidden="true">*</span>
+                </label>
+                <input class="field__input" id="order-email" name="email" type="email" autocomplete="email"
+                       required data-required="Укажите e-mail — пришлём на него расшифровку"
+                       aria-describedby="order-email-hint order-email-error">
+                <p class="field__hint" id="order-email-hint">Сюда придёт подтверждение и готовый текст.</p>
+                <p class="field__error" id="order-email-error"></p>
+              </div>
+            </div>
+
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="order-phone">Телефон</label>
+                <input class="field__input" id="order-phone" name="phone" type="tel" autocomplete="tel"
+                       inputmode="tel" placeholder="+7 900 123-45-67"
+                       pattern="\+?[0-9\s\-\(\)]{10,20}" data-pattern="Введите телефон, например +7 900 123-45-67"
+                       aria-describedby="order-phone-error">
+                <p class="field__error" id="order-phone-error"></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="order-company">Компания</label>
+                <input class="field__input" id="order-company" name="company" type="text" autocomplete="organization"
+                       aria-describedby="order-company-hint">
+                <p class="field__hint" id="order-company-hint">Если нужен счёт и договор для юрлица.</p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="order-comment">Комментарий для редактора</label>
+              <textarea class="field__input" id="order-comment" name="comment" rows="4" maxlength="1000"
+                        aria-describedby="order-comment-hint"></textarea>
+              <p class="field__hint" id="order-comment-hint">Имена участников, термины, фрагменты, на которые стоит обратить внимание.</p>
+            </div>
+
+            <div class="field">
+              <label class="checkbox">
+                <input id="order-consent" name="consent" type="checkbox" required
+                       data-required="Без согласия мы не сможем принять заказ" aria-describedby="order-consent-error">
+                <span>Согласен на обработку персональных данных и условия оказания услуг <span class="field__required" aria-hidden="true">*</span></span>
+              </label>
+              <p class="field__error" id="order-consent-error"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form__actions">
+          <button class="button button--primary" type="submit">Отправить заказ</button>
+          <button class="button" type="reset">Очистить форму</button>
+        </div>
+        <p class="form__status" id="order-form-status" role="alert"></p>
+      </form>
+
+      <aside class="summary" aria-labelledby="summary-title">
+        <h2 class="summary__title" id="summary-title">Ваш заказ</h2>
+        <dl class="summary__list">
+          <div class="summary__row"><dt>Услуга</dt><dd id="summary-service">не выбрана</dd></div>
+          <div class="summary__row"><dt>Тариф</dt><dd id="summary-tariff">Стандарт, обычная срочность</dd></div>
+          <div class="summary__row"><dt>Длительность</dt><dd id="summary-minutes">не указана</dd></div>
+          <div class="summary__row"><dt>Ставка</dt><dd id="summary-rate">—</dd></div>
+          <div class="summary__row"><dt>Скидка</dt><dd id="summary-discount">нет</dd></div>
+          <div class="summary__row"><dt>Срок</dt><dd id="summary-deadline">—</dd></div>
+        </dl>
+        <p class="summary__total">
+          <span id="summary-total-label">Итого</span>
+          <output class="summary__total-value" id="summary-total" for="order-service order-minutes" aria-labelledby="summary-total-label">—</output>
+        </p>
+        <p class="summary__note">Окончательную сумму подтвердит менеджер после проверки файла. Минимальный заказ — 300 ₽.</p>
+
+        <div class="order-steps">
+          <h3 class="order-steps__title">Что будет дальше</h3>
+          <ol class="order-steps__list">
+            <li>Менеджер проверит файл и подтвердит заказ — в рабочее время за 15 минут.</li>
+            <li>Оплатите по ссылке из письма или по счёту для юрлица.</li>
+            <li>Получите расшифровку на почту и в личном кабинете.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<dialog class="dialog" id="order-dialog" aria-labelledby="dialog-title">
+  <div class="dialog__inner">
+    <button class="dialog__close" type="button" data-dialog-close aria-label="Закрыть окно">
+      <span aria-hidden="true">×</span>
+    </button>
+    <div class="dialog__icon" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    </div>
+    <h2 class="dialog__title" id="dialog-title">Заказ <span id="dialog-number"></span> принят</h2>
+    <p>Спасибо, <span id="dialog-name"></span>! Подтверждение и ссылка на оплату придут на <span id="dialog-email"></span>.</p>
+    <dl class="dialog__list">
+      <div><dt>Услуга</dt><dd id="dialog-service"></dd></div>
+      <div><dt>Предварительная стоимость</dt><dd id="dialog-total"></dd></div>
+      <div><dt>Будет готово</dt><dd id="dialog-ready"></dd></div>
+    </dl>
+    <p class="muted">Это учебный проект: заявка никуда не отправляется.</p>
+    <button class="button button--primary button--block" type="button" data-dialog-close autofocus>Хорошо</button>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+          <span>Стенограф</span>
+        </a>
+        <p class="site-footer__text">
+          Расшифровка аудио и видео в текст: совещания, интервью, лекции, вебинары, субтитры и протоколы.
+        </p>
+      </div>
+
+      <nav aria-label="Разделы сайта">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a href="catalog.html">Каталог услуг</a></li>
+          <li><a href="tariffs.html">Тарифы</a></li>
+          <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
+          <li><a href="examples.html">Примеры работ</a></li>
+          <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="contacts.html#faq">Частые вопросы</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="site-footer__title">Популярное</h2>
+        <ul class="site-footer__list">
+          <li><a href="product.html?id=meetings">Расшифровка совещаний</a></li>
+          <li><a href="product.html?id=protocols">Протокол совещания</a></li>
+          <li><a href="product.html?id=interviews">Расшифровка интервью</a></li>
+          <li><a href="product.html?id=subtitles">Создание субтитров</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__title">Контакты</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:zakaz@example.com">zakaz@example.com</a></li>
+          <li>Москва, Новослободская ул., 23</li>
+          <li>Пн–Пт 9:00–20:00, Сб 10:00–16:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Стенограф. Учебный проект, контрольная работа №3.</p>
+      <p>Автор: Брусникин Максим Александрович, ЭФБО-02-25</p>
+    </div>
+  </div>
+</footer>
+
+<a class="back-to-top" href="#top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  <span class="visually-hidden">Наверх</span>
+</a>
+</body>
+</html>

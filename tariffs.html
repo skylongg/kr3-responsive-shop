@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тарифы и калькулятор стоимости — Стенограф</title>
+  <meta name="description" content="Сравнение тарифов Базовый, Стандарт и Бизнес по цене, срокам и возможностям. Калькулятор стоимости расшифровки по длительности записи и срочности.">
+  <meta name="theme-color" content="#0a1a34">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
+       Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
+       браузер блокирует такой запрос и пишет ошибку в консоль. */
+    document.documentElement.classList.add('js');
+    if (location.protocol !== 'file:') {
+      var fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = 'fonts/golos-text-cyrillic-400-normal.woff2';
+      document.head.appendChild(fontPreload);
+    }
+  </script>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html">
+      <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+      <span>Стенограф</span>
+    </a>
+
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+      <span class="visually-hidden site-header__toggle-label">Открыть меню</span>
+    </button>
+
+    <nav class="site-nav" id="site-menu" aria-label="Основное меню">
+      <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Услуги</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="tariffs.html" aria-current="page">Тарифы</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="examples.html">Примеры работ</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item site-nav__item--cta"><a class="button button--primary button--small" href="order.html">Заказать расшифровку</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+          <li class="breadcrumbs__item"><span aria-current="page">Тарифы</span></li>
+        </ol>
+      </nav>
+      <h1 class="page-head__title" id="page-title">Тарифы</h1>
+      <p class="page-head__lead">
+        От черновой расшифровки для себя до протоколов с NDA для компаний.
+        Итоговая цена зависит от услуги — в карточках указана минимальная.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="plans-title">
+    <div class="container">
+      <h2 class="visually-hidden" id="plans-title">Тарифы</h2>
+      <ul class="grid grid--3">
+        <li>
+          <article class="tariff">
+            <h3 class="tariff__title">Базовый</h3>
+            <p class="tariff__text">Автоматическая расшифровка без вычитки — для черновиков и личных заметок.</p>
+            <p class="tariff__price">от 7 ₽ <small>/ мин</small></p>
+            <p class="tariff__term">Срок: +50% к сроку услуги</p>
+            <ul class="check-list tariff__list">
+              <li>Распознавание речи нейросетью</li>
+              <li>Разделение по спикерам</li>
+              <li>Таймкоды по абзацам</li>
+              <li>Файлы DOCX и Markdown</li>
+              <li>Хранение файлов 7 дней</li>
+            </ul>
+            <a class="button button--block" href="order.html?tariff=basic">
+              Выбрать<span class="visually-hidden"> тариф «Базовый»</span>
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="tariff tariff--featured">
+            <p class="tariff__badge">Выбирают чаще всего</p>
+            <h3 class="tariff__title">Стандарт</h3>
+            <p class="tariff__text">Расшифровка с вычиткой редактором — для работы и публикаций.</p>
+            <p class="tariff__price">от 10 ₽ <small>/ мин</small></p>
+            <p class="tariff__term">Срок: стандартный срок услуги</p>
+            <ul class="check-list tariff__list">
+              <li>Всё из тарифа «Базовый»</li>
+              <li>Вычитка редактором, точность до 98%</li>
+              <li>Имена участников вместо «Спикер 1»</li>
+              <li>Таймкоды у каждой реплики</li>
+              <li>Протокол совещания по запросу</li>
+              <li>Хранение файлов 30 дней</li>
+            </ul>
+            <a class="button button--primary button--block" href="order.html?tariff=standard">
+              Выбрать<span class="visually-hidden"> тариф «Стандарт»</span>
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="tariff">
+            <h3 class="tariff__title">Бизнес</h3>
+            <p class="tariff__text">Двойная вычитка, протоколы и NDA — для компаний и юристов.</p>
+            <p class="tariff__price">от 15 ₽ <small>/ мин</small></p>
+            <p class="tariff__term">Срок: в 2 раза быстрее</p>
+            <ul class="check-list tariff__list">
+              <li>Всё из тарифа «Стандарт»</li>
+              <li>Двойная вычитка, точность до 99%</li>
+              <li>Протокол и справка по совещанию</li>
+              <li>Чат с вопросами по расшифровке</li>
+              <li>Договор, NDA и доступ по API</li>
+              <li>Хранение файлов 1 год</li>
+            </ul>
+            <a class="button button--block" href="order.html?tariff=business">
+              Выбрать<span class="visually-hidden"> тариф «Бизнес»</span>
+            </a>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="compare-title">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__head-text">
+          <h2 class="section__title" id="compare-title">Сравнение тарифов</h2>
+          <p class="section__lead">Цена, сроки и возможности в одной таблице.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table table--stack compare">
+          <caption>Цена, сроки и возможности тарифов</caption>
+          <thead>
+            <tr>
+              <th scope="col">Параметр</th>
+              <th scope="col">Базовый</th>
+              <th scope="col">Стандарт</th>
+              <th scope="col">Бизнес</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Цена за минуту</th>
+              <td data-label="Базовый">от 7 ₽</td>
+              <td data-label="Стандарт">от 10 ₽</td>
+              <td data-label="Бизнес">от 15 ₽</td>
+            </tr>
+            <tr>
+              <th scope="row">Срок выполнения</th>
+              <td data-label="Базовый">+50% к сроку услуги</td>
+              <td data-label="Стандарт">срок услуги</td>
+              <td data-label="Бизнес">в 2 раза быстрее</td>
+            </tr>
+            <tr>
+              <th scope="row">Срочная и экспресс-обработка</th>
+              <td data-label="Базовый"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Стандарт"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Распознавание русской и английской речи</th>
+              <td data-label="Базовый"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Стандарт"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Разделение по спикерам</th>
+              <td data-label="Базовый"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Стандарт"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Таймкоды</th>
+              <td data-label="Базовый">по абзацам</td>
+              <td data-label="Стандарт">у каждой реплики</td>
+              <td data-label="Бизнес">у каждой реплики</td>
+            </tr>
+            <tr>
+              <th scope="row">Вычитка редактором</th>
+              <td data-label="Базовый"><span class="compare__no">нет</span></td>
+              <td data-label="Стандарт">одна</td>
+              <td data-label="Бизнес">двойная</td>
+            </tr>
+            <tr>
+              <th scope="row">Точность текста</th>
+              <td data-label="Базовый">92–96%</td>
+              <td data-label="Стандарт">до 98%</td>
+              <td data-label="Бизнес">до 99%</td>
+            </tr>
+            <tr>
+              <th scope="row">Имена участников</th>
+              <td data-label="Базовый"><span class="compare__no">нет</span></td>
+              <td data-label="Стандарт"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Протокол совещания</th>
+              <td data-label="Базовый"><span class="compare__no">нет</span></td>
+              <td data-label="Стандарт">по запросу</td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Справка по совещанию</th>
+              <td data-label="Базовый"><span class="compare__no">нет</span></td>
+              <td data-label="Стандарт"><span class="compare__no">нет</span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Чат с вопросами по расшифровке</th>
+              <td data-label="Базовый"><span class="compare__no">нет</span></td>
+              <td data-label="Стандарт"><span class="compare__no">нет</span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Публичная ссылка на расшифровку</th>
+              <td data-label="Базовый"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Стандарт"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Хранение файлов</th>
+              <td data-label="Базовый">7 дней</td>
+              <td data-label="Стандарт">30 дней</td>
+              <td data-label="Бизнес">1 год</td>
+            </tr>
+            <tr>
+              <th scope="row">Договор и NDA</th>
+              <td data-label="Базовый"><span class="compare__no">нет</span></td>
+              <td data-label="Стандарт">договор</td>
+              <td data-label="Бизнес">договор и NDA</td>
+            </tr>
+            <tr>
+              <th scope="row">Доступ по API</th>
+              <td data-label="Базовый"><span class="compare__no">нет</span></td>
+              <td data-label="Стандарт"><span class="compare__no">нет</span></td>
+              <td data-label="Бизнес"><span class="compare__yes"><span class="visually-hidden">Есть</span></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calculator" aria-labelledby="calc-title">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__head-text">
+          <h2 class="section__title" id="calc-title">Калькулятор стоимости</h2>
+          <p class="section__lead">
+            Выберите услугу, укажите длительность записи и срочность — цена и время готовности
+            пересчитываются сразу.
+          </p>
+        </div>
+      </div>
+
+      <form class="calc" id="calc-form" novalidate>
+        <div class="calc__fields card">
+          <div class="field">
+            <label class="field__label" for="calc-service">Услуга</label>
+            <select class="field__input" id="calc-service" name="service"></select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="calc-minutes">Длительность записи, минут</label>
+            <input class="field__input" id="calc-minutes" name="minutes" type="number" inputmode="numeric"
+                   min="1" max="6000" step="1" value="60" required
+                   aria-describedby="calc-minutes-hint calc-minutes-error">
+            <p class="field__hint" id="calc-minutes-hint">От 1 до 6000 минут. Неполную минуту считаем как целую.</p>
+            <p class="field__error" id="calc-minutes-error"></p>
+            <div class="presets" role="group" aria-label="Типичная длительность записи">
+              <button class="presets__button" type="button" data-minutes="30">30 мин</button>
+              <button class="presets__button" type="button" data-minutes="60">1 час</button>
+              <button class="presets__button" type="button" data-minutes="90">1,5 часа</button>
+              <button class="presets__button" type="button" data-minutes="180">3 часа</button>
+              <button class="presets__button" type="button" data-minutes="600">10 часов</button>
+            </div>
+          </div>
+
+          <fieldset class="choices">
+            <legend class="choices__legend">Тариф</legend>
+            <div class="choices__list choices__list--3">
+              <label class="choice">
+                <input type="radio" name="tariff" value="basic">
+                <span>
+                  <span class="choice__title">Базовый</span>
+                  <span class="choice__text">−30% к цене, +50% к сроку</span>
+                </span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="tariff" value="standard" checked>
+                <span>
+                  <span class="choice__title">Стандарт</span>
+                  <span class="choice__text">цена и срок услуги</span>
+                </span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="tariff" value="business">
+                <span>
+                  <span class="choice__title">Бизнес</span>
+                  <span class="choice__text">+50% к цене, вдвое быстрее</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="choices">
+            <legend class="choices__legend">Срочность</legend>
+            <div class="choices__list choices__list--3">
+              <label class="choice">
+                <input type="radio" name="urgency" value="normal" checked>
+                <span>
+                  <span class="choice__title">Обычная</span>
+                  <span class="choice__text">без наценки</span>
+                </span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="urgency" value="urgent">
+                <span>
+                  <span class="choice__title">Срочная</span>
+                  <span class="choice__text">+50% к цене, вдвое быстрее</span>
+                </span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="urgency" value="express">
+                <span>
+                  <span class="choice__title">Экспресс</span>
+                  <span class="choice__text">×2 к цене, вчетверо быстрее</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="calc__result">
+          <p class="calc__result-title" id="calc-total-label">Стоимость заказа</p>
+          <output class="calc__total" id="calc-total" for="calc-service calc-minutes" aria-labelledby="calc-total-label">900 ₽</output>
+          <dl class="calc__breakdown">
+            <div class="calc__row">
+              <dt>Ставка</dt>
+              <dd id="calc-rate">15 ₽/мин × 60 мин</dd>
+            </div>
+            <div class="calc__row">
+              <dt>Скидка за объём</dt>
+              <dd id="calc-discount">нет — от 300 минут</dd>
+            </div>
+            <div class="calc__row">
+              <dt>Срок</dt>
+              <dd id="calc-deadline">до 24 часов</dd>
+            </div>
+            <div class="calc__row">
+              <dt>Будет готово</dt>
+              <dd id="calc-ready">—</dd>
+            </div>
+          </dl>
+          <p class="calc__note" id="calc-min-note" hidden>Минимальная сумма заказа — 300 ₽.</p>
+          <p class="calc__note">Скидка 5% от 300 минут записи и 10% — от 600 минут.</p>
+          <a class="button button--primary button--block" id="calc-order" href="order.html">Оформить заказ с этими параметрами</a>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+          <span>Стенограф</span>
+        </a>
+        <p class="site-footer__text">
+          Расшифровка аудио и видео в текст: совещания, интервью, лекции, вебинары, субтитры и протоколы.
+        </p>
+      </div>
+
+      <nav aria-label="Разделы сайта">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a href="catalog.html">Каталог услуг</a></li>
+          <li><a href="tariffs.html">Тарифы</a></li>
+          <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
+          <li><a href="examples.html">Примеры работ</a></li>
+          <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="contacts.html#faq">Частые вопросы</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="site-footer__title">Популярное</h2>
+        <ul class="site-footer__list">
+          <li><a href="product.html?id=meetings">Расшифровка совещаний</a></li>
+          <li><a href="product.html?id=protocols">Протокол совещания</a></li>
+          <li><a href="product.html?id=interviews">Расшифровка интервью</a></li>
+          <li><a href="product.html?id=subtitles">Создание субтитров</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__title">Контакты</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:zakaz@example.com">zakaz@example.com</a></li>
+          <li>Москва, Новослободская ул., 23</li>
+          <li>Пн–Пт 9:00–20:00, Сб 10:00–16:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Стенограф. Учебный проект, контрольная работа №3.</p>
+      <p>Автор: Брусникин Максим Александрович, ЭФБО-02-25</p>
+    </div>
+  </div>
+</footer>
+
+<a class="back-to-top" href="#top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  <span class="visually-hidden">Наверх</span>
+</a>
+</body>
+</html>

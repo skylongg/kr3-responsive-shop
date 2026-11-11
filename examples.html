@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Примеры работ — Стенограф</title>
+  <meta name="description" content="Образцы расшифровок совещаний, интервью и лекций с разделением по спикерам и таймкодами, пример протокола и субтитров SRT.">
+  <meta name="theme-color" content="#0a1a34">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
+       Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
+       браузер блокирует такой запрос и пишет ошибку в консоль. */
+    document.documentElement.classList.add('js');
+    if (location.protocol !== 'file:') {
+      var fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = 'fonts/golos-text-cyrillic-400-normal.woff2';
+      document.head.appendChild(fontPreload);
+    }
+  </script>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html">
+      <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+      <span>Стенограф</span>
+    </a>
+
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+      <span class="visually-hidden site-header__toggle-label">Открыть меню</span>
+    </button>
+
+    <nav class="site-nav" id="site-menu" aria-label="Основное меню">
+      <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Услуги</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="tariffs.html">Тарифы</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="examples.html" aria-current="page">Примеры работ</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item site-nav__item--cta"><a class="button button--primary button--small" href="order.html">Заказать расшифровку</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+          <li class="breadcrumbs__item"><span aria-current="page">Примеры работ</span></li>
+        </ol>
+      </nav>
+      <h1 class="page-head__title" id="page-title">Примеры работ</h1>
+      <p class="page-head__lead">
+        Фрагменты расшифровок в том виде, в каком их получают клиенты: реплики по спикерам,
+        таймкоды, протокол с поручениями и субтитры. Имена и детали изменены.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Образцы расшифровок">
+    <div class="container">
+      <div class="examples-toolbar">
+        <ul class="filter-buttons" aria-label="Тип записи">
+          <li><button class="filter-buttons__button" type="button" data-filter="all" aria-pressed="true">Все</button></li>
+          <li><button class="filter-buttons__button" type="button" data-filter="meetings" aria-pressed="false">Совещания</button></li>
+          <li><button class="filter-buttons__button" type="button" data-filter="interviews" aria-pressed="false">Интервью</button></li>
+          <li><button class="filter-buttons__button" type="button" data-filter="lectures" aria-pressed="false">Лекции</button></li>
+          <li><button class="filter-buttons__button" type="button" data-filter="subtitles" aria-pressed="false">Субтитры</button></li>
+        </ul>
+
+        <label class="switch">
+          <input class="switch__input" id="toggle-timecodes" type="checkbox" checked>
+          Показывать таймкоды
+        </label>
+      </div>
+
+      <p class="visually-hidden" id="examples-status" role="status"></p>
+
+      <div class="examples" id="examples">
+        <article class="example" data-category="meetings" aria-labelledby="example-1">
+          <header class="example__header">
+            <p class="example__type"><span class="tag">Совещание</span></p>
+            <h2 class="example__title" id="example-1">Планёрка отдела маркетинга</h2>
+            <dl class="example__meta">
+              <div><dt>Длительность:</dt><dd>42 мин</dd></div>
+              <div><dt>Спикеров:</dt><dd>3</dd></div>
+              <div><dt>Тариф:</dt><dd>Стандарт + протокол</dd></div>
+              <div><dt>Готово за:</dt><dd>18 часов</dd></div>
+            </dl>
+          </header>
+          <div class="example__body">
+            <h3 class="example__subtitle">Расшифровка</h3>
+            <ol class="transcript">
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:00:05</time>
+                  <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+                </span>
+                <p class="transcript__text">Коллеги, добрый день. Сегодня три вопроса: запуск рассылки, бюджет на ноябрь и найм аналитика. Начнём с рассылки.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:00:19</time>
+                  <span class="transcript__speaker transcript__speaker--1">Павел Игнатов</span>
+                </span>
+                <p class="transcript__text">Шаблон согласован с юристами, база выгружена — двенадцать тысяч адресов. Готовы отправить в четверг утром.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:00:34</time>
+                  <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+                </span>
+                <p class="transcript__text">Хорошо, фиксируем четверг, десять утра. Павел, отчёт по открытиям и кликам — в пятницу.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:00:44</time>
+                  <span class="transcript__speaker transcript__speaker--2">Ольга Ким</span>
+                </span>
+                <p class="transcript__text">По бюджету: укладываемся, если перенести закупку ноутбуков на декабрь. Иначе перерасход около ста восьмидесяти тысяч.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:01:02</time>
+                  <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+                </span>
+                <p class="transcript__text">Переносим. Ольга, обнови, пожалуйста, план закупок.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:01:09</time>
+                  <span class="transcript__speaker transcript__speaker--2">Ольга Ким</span>
+                </span>
+                <p class="transcript__text">Сделаю до понедельника.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:01:15</time>
+                  <span class="transcript__speaker transcript__speaker--1">Павел Игнатов</span>
+                </span>
+                <p class="transcript__text">По аналитику: текст вакансии готов, осталось согласовать вилку с HR.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:01:24</time>
+                  <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+                </span>
+                <p class="transcript__text">Согласую сама до пятницы. На сегодня всё, спасибо.</p>
+              </li>
+            </ol>
+
+            <h3 class="example__subtitle">Протокол: решения</h3>
+            <ol class="protocol__list">
+              <li>Рассылку по клиентской базе отправить в четверг в 10:00.</li>
+              <li>Закупку ноутбуков перенести на декабрь, бюджет ноября не превышать.</li>
+              <li>Открыть вакансию аналитика данных после согласования вилки с HR.</li>
+            </ol>
+
+            <div class="table-wrap">
+              <table class="table table--stack">
+                <caption>Поручения по итогам планёрки</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Поручение</th>
+                    <th scope="col">Ответственный</th>
+                    <th scope="col">Срок</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Поручение">Отправить рассылку по клиентской базе</td>
+                    <td data-label="Ответственный">П. Игнатов</td>
+                    <td data-label="Срок">12 ноября</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Поручение">Подготовить отчёт по открытиям и кликам</td>
+                    <td data-label="Ответственный">П. Игнатов</td>
+                    <td data-label="Срок">13 ноября</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Поручение">Обновить план закупок на декабрь</td>
+                    <td data-label="Ответственный">О. Ким</td>
+                    <td data-label="Срок">16 ноября</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Поручение">Согласовать вилку вакансии с HR</td>
+                    <td data-label="Ответственный">А. Морозова</td>
+                    <td data-label="Срок">13 ноября</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="example__subtitle">Так расшифровка выглядит в файле DOCX</h3>
+            <figure class="example__figure">
+              <picture>
+                <source type="image/webp"
+                        srcset="images/docx-480.webp 480w, images/docx-800.webp 800w, images/docx-1200.webp 1200w"
+                        sizes="(min-width: 768px) 640px, calc(100vw - 82px)">
+                <img src="images/docx-800.png"
+                     srcset="images/docx-480.png 480w, images/docx-800.png 800w, images/docx-1200.png 1200w"
+                     sizes="(min-width: 768px) 640px, calc(100vw - 82px)"
+                     width="1200" height="900" loading="lazy"
+                     alt="Первая страница файла DOCX: заголовок «Планёрка отдела маркетинга», таблица с файлом, длительностью 42:16, участниками и датой, ниже реплики с именами спикеров и таймкодами">
+              </picture>
+              <figcaption>Первая страница файла. Протокол прикладывается отдельным документом.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article class="example" data-category="interviews" aria-labelledby="example-2">
+          <header class="example__header">
+            <p class="example__type"><span class="tag">Интервью</span></p>
+            <h2 class="example__title" id="example-2">Собеседование на позицию аналитика данных</h2>
+            <dl class="example__meta">
+              <div><dt>Длительность:</dt><dd>1 ч 05 мин</dd></div>
+              <div><dt>Спикеров:</dt><dd>2</dd></div>
+              <div><dt>Тариф:</dt><dd>Стандарт, дословно</dd></div>
+              <div><dt>Готово за:</dt><dd>20 часов</dd></div>
+            </dl>
+          </header>
+          <div class="example__body">
+            <ol class="transcript">
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:12:40</time>
+                  <span class="transcript__speaker transcript__speaker--1">Интервьюер</span>
+                </span>
+                <p class="transcript__text">Расскажите, с какими данными вы работали на прошлом месте?</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:12:46</time>
+                  <span class="transcript__speaker transcript__speaker--2">Кандидат</span>
+                </span>
+                <p class="transcript__text">В основном с продажами и логистикой. Витрины в ClickHouse, отчёты в Superset, плюс разовые выгрузки для финансов.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:13:02</time>
+                  <span class="transcript__speaker transcript__speaker--1">Интервьюер</span>
+                </span>
+                <p class="transcript__text">Как вы проверяли, что цифры в отчёте сходятся с учётной системой?</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:13:08</time>
+                  <span class="transcript__speaker transcript__speaker--2">Кандидат</span>
+                </span>
+                <p class="transcript__text">Сверяли контрольные суммы за день. Если расходилось больше чем на полпроцента — разбирали вместе с бухгалтерией, обычно дело было в возвратах.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:13:31</time>
+                  <span class="transcript__speaker transcript__speaker--1">Интервьюер</span>
+                </span>
+                <p class="transcript__text">А был случай, когда ошибка всё-таки дошла до руководства?</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:13:36</time>
+                  <span class="transcript__speaker transcript__speaker--2">Кандидат</span>
+                </span>
+                <p class="transcript__text">Был, один раз. (смеётся) После этого мы добавили автоматическую проверку перед каждой рассылкой отчёта.</p>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="example" data-category="lectures" aria-labelledby="example-3">
+          <header class="example__header">
+            <p class="example__type"><span class="tag">Лекция</span></p>
+            <h2 class="example__title" id="example-3">Лекция «Введение в машинное обучение»</h2>
+            <dl class="example__meta">
+              <div><dt>Длительность:</dt><dd>1 ч 28 мин</dd></div>
+              <div><dt>Спикеров:</dt><dd>2</dd></div>
+              <div><dt>Тариф:</dt><dd>Стандарт</dd></div>
+              <div><dt>Готово за:</dt><dd>40 часов</dd></div>
+            </dl>
+          </header>
+          <div class="example__body">
+            <h3 class="example__subtitle">1. Обучение с учителем</h3>
+            <ol class="transcript">
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:00:10</time>
+                  <span class="transcript__speaker transcript__speaker--1">Лектор</span>
+                </span>
+                <p class="transcript__text">Сегодня разберём, чем обучение с учителем отличается от обучения без учителя, и посмотрим на задачу классификации.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:04:32</time>
+                  <span class="transcript__speaker transcript__speaker--1">Лектор</span>
+                </span>
+                <p class="transcript__text">Модель не «знает» ответ. Она подбирает параметры так, чтобы ошибка на обучающей выборке была минимальной.</p>
+              </li>
+            </ol>
+            <h3 class="example__subtitle">2. Переобучение</h3>
+            <ol class="transcript">
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:05:15</time>
+                  <span class="transcript__speaker transcript__speaker--3">Слушатель</span>
+                </span>
+                <p class="transcript__text">А если данных мало, модель же просто запомнит примеры?</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:05:21</time>
+                  <span class="transcript__speaker transcript__speaker--1">Лектор</span>
+                </span>
+                <p class="transcript__text">Да, это и есть переобучение. Поэтому часть данных всегда откладываем — это тестовая выборка: на ней модель проверяют, но не обучают.</p>
+              </li>
+              <li class="transcript__item">
+                <span class="transcript__head">
+                  <time class="transcript__time">00:06:02</time>
+                  <span class="transcript__speaker transcript__speaker--1">Лектор</span>
+                </span>
+                <p class="transcript__text">Запишите: обучающая, валидационная и тестовая выборки. Обычно делим в пропорции семьдесят, пятнадцать и пятнадцать процентов.</p>
+              </li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="example" data-category="subtitles" aria-labelledby="example-4">
+          <header class="example__header">
+            <p class="example__type"><span class="tag">Субтитры</span></p>
+            <h2 class="example__title" id="example-4">Субтитры к уроку онлайн-курса</h2>
+            <dl class="example__meta">
+              <div><dt>Длительность:</dt><dd>12 мин</dd></div>
+              <div><dt>Спикеров:</dt><dd>1</dd></div>
+              <div><dt>Формат:</dt><dd>SRT и VTT</dd></div>
+              <div><dt>Готово за:</dt><dd>3 дня</dd></div>
+            </dl>
+          </header>
+          <div class="example__body">
+            <h3 class="example__subtitle">Файл lesson-04.srt</h3>
+            <pre class="srt"><code>1
+00:00:01,200 --> 00:00:03,850
+Привет! Сегодня покажу, как за десять минут
+
+2
+00:00:03,900 --> 00:00:06,700
+настроить автоматическую выгрузку отчётов.
+
+3
+00:00:07,450 --> 00:00:10,100
+Нам понадобятся таблица
+и один небольшой скрипт.
+
+4
+00:00:10,600 --> 00:00:13,300
+Открываем таблицу и создаём лист «Выгрузка».</code></pre>
+          </div>
+        </article>
+      </div>
+
+      <div class="cta">
+        <div>
+          <h2 class="cta__title">Нужен такой же результат?</h2>
+          <p class="cta__text">Загрузите запись — первые реплики появятся в личном кабинете уже через несколько минут.</p>
+        </div>
+        <div class="cta__actions">
+          <a class="button button--primary" href="order.html">Оформить заказ</a>
+          <a class="button button--light" href="catalog.html">Выбрать услугу</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+          <span>Стенограф</span>
+        </a>
+        <p class="site-footer__text">
+          Расшифровка аудио и видео в текст: совещания, интервью, лекции, вебинары, субтитры и протоколы.
+        </p>
+      </div>
+
+      <nav aria-label="Разделы сайта">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a href="catalog.html">Каталог услуг</a></li>
+          <li><a href="tariffs.html">Тарифы</a></li>
+          <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
+          <li><a href="examples.html">Примеры работ</a></li>
+          <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="contacts.html#faq">Частые вопросы</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="site-footer__title">Популярное</h2>
+        <ul class="site-footer__list">
+          <li><a href="product.html?id=meetings">Расшифровка совещаний</a></li>
+          <li><a href="product.html?id=protocols">Протокол совещания</a></li>
+          <li><a href="product.html?id=interviews">Расшифровка интервью</a></li>
+          <li><a href="product.html?id=subtitles">Создание субтитров</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__title">Контакты</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:zakaz@example.com">zakaz@example.com</a></li>
+          <li>Москва, Новослободская ул., 23</li>
+          <li>Пн–Пт 9:00–20:00, Сб 10:00–16:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Стенограф. Учебный проект, контрольная работа №3.</p>
+      <p>Автор: Брусникин Максим Александрович, ЭФБО-02-25</p>
+    </div>
+  </div>
+</footer>
+
+<a class="back-to-top" href="#top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  <span class="visually-hidden">Наверх</span>
+</a>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог услуг — Стенограф</title>
+  <meta name="description" content="Расшифровка совещаний, интервью, лекций, вебинаров, звонков и подкастов, создание субтитров и протоколов. Поиск, фильтры по типу записи, сроку и цене.">
+  <meta name="theme-color" content="#0a1a34">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
+       Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
+       браузер блокирует такой запрос и пишет ошибку в консоль. */
+    document.documentElement.classList.add('js');
+    if (location.protocol !== 'file:') {
+      var fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = 'fonts/golos-text-cyrillic-400-normal.woff2';
+      document.head.appendChild(fontPreload);
+    }
+  </script>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html">
+      <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+      <span>Стенограф</span>
+    </a>
+
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+      <span class="visually-hidden site-header__toggle-label">Открыть меню</span>
+    </button>
+
+    <nav class="site-nav" id="site-menu" aria-label="Основное меню">
+      <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html" aria-current="page">Услуги</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="tariffs.html">Тарифы</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="examples.html">Примеры работ</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item site-nav__item--cta"><a class="button button--primary button--small" href="order.html">Заказать расшифровку</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+          <li class="breadcrumbs__item"><span aria-current="page">Каталог услуг</span></li>
+        </ol>
+      </nav>
+      <h1 class="page-head__title" id="page-title">Каталог услуг</h1>
+      <p class="page-head__lead">
+        Расшифровка совещаний, интервью, лекций и вебинаров, субтитры и протоколы.
+        Цена указана за минуту записи на тарифе «Стандарт».
+      </p>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="container catalog">
+      <aside class="filters" aria-label="Фильтры">
+        <button class="filters__toggle" type="button" aria-expanded="false" aria-controls="filters-body">
+          Фильтры
+        </button>
+
+        <div class="filters__body" id="filters-body">
+          <h2 class="filters__title">Фильтры</h2>
+          <form id="catalog-filters">
+            <fieldset class="filters__group">
+              <legend>Тип записи</legend>
+              <label class="filters__option">
+                <input type="checkbox" name="media" value="audio"> Аудио
+              </label>
+              <label class="filters__option">
+                <input type="checkbox" name="media" value="video"> Видео
+              </label>
+            </fieldset>
+
+            <fieldset class="filters__group">
+              <legend>Срок выполнения</legend>
+              <label class="filters__option">
+                <input type="radio" name="deadline" value="any" checked> Любой
+              </label>
+              <label class="filters__option">
+                <input type="radio" name="deadline" value="12"> До 12 часов
+              </label>
+              <label class="filters__option">
+                <input type="radio" name="deadline" value="24"> До 24 часов
+              </label>
+              <label class="filters__option">
+                <input type="radio" name="deadline" value="48"> До 2 дней
+              </label>
+            </fieldset>
+
+            <div class="filters__group">
+              <label class="filters__label" for="filter-price">Цена за минуту</label>
+              <input class="filters__range" id="filter-price" name="price" type="range"
+                     min="10" max="30" step="1" value="30" aria-describedby="filter-price-value">
+              <output class="filters__range-value" id="filter-price-value" for="filter-price">до 30 ₽/мин</output>
+            </div>
+
+            <button class="button button--block" type="button" data-catalog-reset>Сбросить фильтры</button>
+          </form>
+        </div>
+      </aside>
+
+      <section class="catalog__results" aria-labelledby="results-title">
+        <h2 class="visually-hidden" id="results-title">Список услуг</h2>
+
+        <div class="catalog-toolbar">
+          <div class="field catalog-toolbar__search" role="search">
+            <label class="field__label" for="catalog-search">Поиск по названию</label>
+            <input class="field__input" id="catalog-search" name="q" type="search"
+                   placeholder="Например, лекции" autocomplete="off">
+          </div>
+          <div class="field catalog-toolbar__sort">
+            <label class="field__label" for="catalog-sort">Сортировка</label>
+            <select class="field__input" id="catalog-sort" name="sort">
+              <option value="popular">По популярности</option>
+              <option value="price-asc">Сначала дешевле</option>
+              <option value="price-desc">Сначала дороже</option>
+              <option value="rating">По рейтингу</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="catalog-toolbar__count" id="catalog-count" role="status"></p>
+
+        <div class="grid grid--3 catalog__list" id="catalog-list">
+          <noscript>
+            <p>Каталог, поиск и фильтры работают с помощью JavaScript. Включите его в браузере или
+              <a href="contacts.html">свяжитесь с нами</a> — подберём услугу.</p>
+          </noscript>
+        </div>
+
+        <div class="catalog-empty" id="catalog-empty" hidden>
+          <h3 class="catalog-empty__title">Ничего не нашлось</h3>
+          <p>Попробуйте изменить запрос или ослабить фильтры.</p>
+          <button class="button button--primary" type="button" data-catalog-reset>Сбросить фильтры</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+          <span>Стенограф</span>
+        </a>
+        <p class="site-footer__text">
+          Расшифровка аудио и видео в текст: совещания, интервью, лекции, вебинары, субтитры и протоколы.
+        </p>
+      </div>
+
+      <nav aria-label="Разделы сайта">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a href="catalog.html">Каталог услуг</a></li>
+          <li><a href="tariffs.html">Тарифы</a></li>
+          <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
+          <li><a href="examples.html">Примеры работ</a></li>
+          <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="contacts.html#faq">Частые вопросы</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="site-footer__title">Популярное</h2>
+        <ul class="site-footer__list">
+          <li><a href="product.html?id=meetings">Расшифровка совещаний</a></li>
+          <li><a href="product.html?id=protocols">Протокол совещания</a></li>
+          <li><a href="product.html?id=interviews">Расшифровка интервью</a></li>
+          <li><a href="product.html?id=subtitles">Создание субтитров</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__title">Контакты</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:zakaz@example.com">zakaz@example.com</a></li>
+          <li>Москва, Новослободская ул., 23</li>
+          <li>Пн–Пт 9:00–20:00, Сб 10:00–16:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Стенограф. Учебный проект, контрольная работа №3.</p>
+      <p>Автор: Брусникин Максим Александрович, ЭФБО-02-25</p>
+    </div>
+  </div>
+</footer>
+
+<a class="back-to-top" href="#top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  <span class="visually-hidden">Наверх</span>
+</a>
+</body>
+</html>

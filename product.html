@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расшифровка совещаний — Стенограф</title>
+  <meta name="description" content="Описание услуги, сроки выполнения, цена за минуту записи по тарифам и пример результата расшифровки.">
+  <meta name="theme-color" content="#0a1a34">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
+       Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
+       браузер блокирует такой запрос и пишет ошибку в консоль. */
+    document.documentElement.classList.add('js');
+    if (location.protocol !== 'file:') {
+      var fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = 'fonts/golos-text-cyrillic-400-normal.woff2';
+      document.head.appendChild(fontPreload);
+    }
+  </script>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html">
+      <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+      <span>Стенограф</span>
+    </a>
+
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+      <span class="visually-hidden site-header__toggle-label">Открыть меню</span>
+    </button>
+
+    <nav class="site-nav" id="site-menu" aria-label="Основное меню">
+      <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html" aria-current="true">Услуги</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="tariffs.html">Тарифы</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="examples.html">Примеры работ</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item site-nav__item--cta"><a class="button button--primary button--small" href="order.html">Заказать расшифровку</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Содержимое ниже — услуга по умолчанию (совещания).
+     Для других услуг (product.html?id=...) JavaScript подставляет данные из js/data.js. -->
+<main id="main">
+  <div id="service-page">
+    <section class="page-head" aria-labelledby="service-title">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <ol class="breadcrumbs__list">
+            <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+            <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="catalog.html">Каталог услуг</a></li>
+            <li class="breadcrumbs__item"><span id="service-crumb" aria-current="page">Расшифровка совещаний</span></li>
+          </ol>
+        </nav>
+
+        <div class="service-hero">
+          <div>
+            <div class="service-hero__head">
+              <img class="service-hero__icon" id="service-icon" src="images/services/meeting.svg" alt="" width="64" height="64">
+              <h1 class="service-hero__title" id="service-title">Расшифровка совещаний</h1>
+            </div>
+
+            <div class="service-hero__meta" data-service-only>
+              <span id="service-rating">
+                <span class="rating" role="img" aria-label="Оценка 4,9 из 5, 212 отзывов">
+                  <span class="rating__stars" style="--rating: 4.9" aria-hidden="true">★★★★★</span>
+                  <span class="rating__value" aria-hidden="true">4,9</span>
+                  <span class="rating__count" aria-hidden="true">212 отзывов</span>
+                </span>
+              </span>
+              <ul class="service-hero__tags" id="service-tags" aria-label="Тип записи">
+                <li class="tag">Аудио</li>
+                <li class="tag">Видео</li>
+              </ul>
+            </div>
+
+            <p class="service-hero__text" id="service-description">
+              Превращаем запись совещания в читаемый текст: каждая реплика подписана именем участника и снабжена таймкодом.
+              Подходит для планёрок, советов директоров и рабочих созвонов на 2–15 человек.
+              Слова-паразиты и повторы убираем, смысл и формулировки сохраняем.
+            </p>
+
+            <p id="service-not-found" hidden>
+              <a class="button button--primary" href="catalog.html">Перейти в каталог</a>
+            </p>
+          </div>
+
+          <div class="facts" data-service-only>
+            <dl class="facts__list">
+              <div class="facts__item">
+                <dt>Цена за минуту записи</dt>
+                <dd class="facts__price" id="service-price">15 ₽/мин</dd>
+              </div>
+              <div class="facts__item">
+                <dt>Срок выполнения</dt>
+                <dd id="service-deadline">до 24 часов</dd>
+              </div>
+              <div class="facts__item">
+                <dt>Принимаем</dt>
+                <dd id="service-formats">Аудио и видео: MP3, WAV, M4A, OGG, MP4, MOV, MKV и др.</dd>
+              </div>
+              <div class="facts__item">
+                <dt>Результат</dt>
+                <dd>DOCX и Markdown, публичная ссылка</dd>
+              </div>
+            </dl>
+            <div class="facts__actions">
+              <a class="button button--primary" id="service-order" href="order.html?service=meetings">Заказать</a>
+              <a class="button" id="service-calc" href="tariffs.html?service=meetings#calculator">Рассчитать стоимость</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Состав и стоимость услуги" data-service-only>
+      <div class="container service-body">
+        <div>
+          <h2>Что входит в услугу</h2>
+          <ul class="check-list" id="service-includes">
+            <li>Разделение на реплики по участникам</li>
+            <li>Таймкод в начале каждой реплики</li>
+            <li>Очистка от слов-паразитов и повторов</li>
+            <li>Пометка [неразборчиво] с таймкодом в спорных местах</li>
+            <li>Файлы DOCX и Markdown</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>Цена по тарифам</h2>
+          <div class="table-wrap">
+            <table class="table table--stack">
+              <caption>Стоимость при обычной срочности</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Тариф</th>
+                  <th scope="col">Цена за минуту</th>
+                  <th scope="col">Срок</th>
+                  <th scope="col">Час записи</th>
+                </tr>
+              </thead>
+              <tbody id="service-tariffs">
+                <tr>
+                  <th scope="row" data-label="Тариф">Базовый</th>
+                  <td data-label="Цена за минуту">10,5 ₽/мин</td>
+                  <td data-label="Срок">до 36 часов</td>
+                  <td data-label="Час записи">630 ₽</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-label="Тариф">Стандарт</th>
+                  <td data-label="Цена за минуту">15 ₽/мин</td>
+                  <td data-label="Срок">до 24 часов</td>
+                  <td data-label="Час записи">900 ₽</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-label="Тариф">Бизнес</th>
+                  <td data-label="Цена за минуту">22,5 ₽/мин</td>
+                  <td data-label="Срок">до 12 часов</td>
+                  <td data-label="Час записи">1 350 ₽</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="muted">
+            Срочная обработка — вдвое быстрее за +50% к цене. <a href="tariffs.html">Сравнить тарифы</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-labelledby="example-title" data-service-only>
+      <div class="container">
+        <div class="section__head">
+          <div class="section__head-text">
+            <h2 class="section__title" id="example-title">Пример результата</h2>
+            <p class="section__lead">Так выглядит готовый текст: реплики по участникам и таймкоды.</p>
+          </div>
+          <a class="section__more" href="examples.html">Все примеры работ <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="card" id="service-example">
+          <ol class="transcript">
+            <li class="transcript__item">
+              <span class="transcript__head">
+                <time class="transcript__time">00:00:05</time>
+                <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+              </span>
+              <p class="transcript__text">Коллеги, добрый день. Сегодня три вопроса: запуск рассылки, бюджет на ноябрь и найм аналитика.</p>
+            </li>
+            <li class="transcript__item">
+              <span class="transcript__head">
+                <time class="transcript__time">00:00:19</time>
+                <span class="transcript__speaker transcript__speaker--1">Павел Игнатов</span>
+              </span>
+              <p class="transcript__text">По рассылке: шаблон согласован, база выгружена. Готовы отправить в четверг утром.</p>
+            </li>
+            <li class="transcript__item">
+              <span class="transcript__head">
+                <time class="transcript__time">00:00:31</time>
+                <span class="transcript__speaker transcript__speaker--0">Анна Морозова</span>
+              </span>
+              <p class="transcript__text">Хорошо, фиксируем четверг, десять утра. Павел, отчёт по открытиям — в пятницу.</p>
+            </li>
+            <li class="transcript__item">
+              <span class="transcript__head">
+                <time class="transcript__time">00:00:44</time>
+                <span class="transcript__speaker transcript__speaker--2">Ольга Ким</span>
+              </span>
+              <p class="transcript__text">По бюджету: укладываемся, если перенести закупку ноутбуков на декабрь.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="related-title" data-service-only>
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title" id="related-title">Похожие услуги</h2>
+          <a class="section__more" href="catalog.html">Весь каталог <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="grid grid--3" id="related-services"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+          <span>Стенограф</span>
+        </a>
+        <p class="site-footer__text">
+          Расшифровка аудио и видео в текст: совещания, интервью, лекции, вебинары, субтитры и протоколы.
+        </p>
+      </div>
+
+      <nav aria-label="Разделы сайта">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a href="catalog.html">Каталог услуг</a></li>
+          <li><a href="tariffs.html">Тарифы</a></li>
+          <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
+          <li><a href="examples.html">Примеры работ</a></li>
+          <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="contacts.html#faq">Частые вопросы</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="site-footer__title">Популярное</h2>
+        <ul class="site-footer__list">
+          <li><a href="product.html?id=meetings">Расшифровка совещаний</a></li>
+          <li><a href="product.html?id=protocols">Протокол совещания</a></li>
+          <li><a href="product.html?id=interviews">Расшифровка интервью</a></li>
+          <li><a href="product.html?id=subtitles">Создание субтитров</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__title">Контакты</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:zakaz@example.com">zakaz@example.com</a></li>
+          <li>Москва, Новослободская ул., 23</li>
+          <li>Пн–Пт 9:00–20:00, Сб 10:00–16:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Стенограф. Учебный проект, контрольная работа №3.</p>
+      <p>Автор: Брусникин Максим Александрович, ЭФБО-02-25</p>
+    </div>
+  </div>
+</footer>
+
+<a class="back-to-top" href="#top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  <span class="visually-hidden">Наверх</span>
+</a>
+</body>
+</html>

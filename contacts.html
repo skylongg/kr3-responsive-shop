@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Контакты и частые вопросы — Стенограф</title>
+  <meta name="description" content="Адрес, телефон, почта и график работы сервиса расшифровки «Стенограф». Форма обратной связи и ответы на частые вопросы.">
+  <meta name="theme-color" content="#0a1a34">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script>
+    /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
+       Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
+       браузер блокирует такой запрос и пишет ошибку в консоль. */
+    document.documentElement.classList.add('js');
+    if (location.protocol !== 'file:') {
+      var fontPreload = document.createElement('link');
+      fontPreload.rel = 'preload';
+      fontPreload.as = 'font';
+      fontPreload.type = 'font/woff2';
+      fontPreload.crossOrigin = 'anonymous';
+      fontPreload.href = 'fonts/golos-text-cyrillic-400-normal.woff2';
+      document.head.appendChild(fontPreload);
+    }
+  </script>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html">
+      <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+      <span>Стенограф</span>
+    </a>
+
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+      <span class="visually-hidden site-header__toggle-label">Открыть меню</span>
+    </button>
+
+    <nav class="site-nav" id="site-menu" aria-label="Основное меню">
+      <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Услуги</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="tariffs.html">Тарифы</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="examples.html">Примеры работ</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html" aria-current="page">Контакты</a></li>
+          <li class="site-nav__item site-nav__item--cta"><a class="button button--primary button--small" href="order.html">Заказать расшифровку</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+          <li class="breadcrumbs__item"><span aria-current="page">Контакты</span></li>
+        </ol>
+      </nav>
+      <h1 class="page-head__title" id="page-title">Контакты</h1>
+      <p class="page-head__lead">
+        Ответим на вопросы о расшифровке, поможем выбрать тариф и подготовим договор для компании.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Контакты и обратная связь">
+    <div class="container contacts">
+      <div class="card">
+        <h2>Как с нами связаться</h2>
+        <address>
+          <dl class="contact-list">
+            <div class="contact-list__item">
+              <dt>Телефон</dt>
+              <dd><a href="tel:+74951234567">+7 (495) 123-45-67</a></dd>
+            </div>
+            <div class="contact-list__item">
+              <dt>Почта для заказов</dt>
+              <dd><a href="mailto:zakaz@example.com">zakaz@example.com</a></dd>
+            </div>
+            <div class="contact-list__item">
+              <dt>Общие вопросы</dt>
+              <dd><a href="mailto:info@example.com">info@example.com</a></dd>
+            </div>
+            <div class="contact-list__item">
+              <dt>Адрес офиса</dt>
+              <dd>Москва, Новослободская ул., 23, офис 410</dd>
+            </div>
+          </dl>
+        </address>
+
+        <div class="schedule table-wrap">
+          <table class="table">
+            <caption>График работы</caption>
+            <tbody>
+              <tr>
+                <th scope="row">Понедельник — пятница</th>
+                <td>9:00–20:00</td>
+              </tr>
+              <tr>
+                <th scope="row">Суббота</th>
+                <td>10:00–16:00</td>
+              </tr>
+              <tr>
+                <th scope="row">Воскресенье</th>
+                <td>выходной</td>
+              </tr>
+              <tr>
+                <th scope="row">Приём заказов на сайте</th>
+                <td>круглосуточно</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="map">
+          <img src="images/map.svg" width="800" height="450" loading="lazy"
+               alt="Схема проезда: от станции метро «Менделеевская» 5 минут пешком по Новослободской улице до офиса 410 на 4 этаже">
+          <figcaption>Вход со двора, на ресепшене назовите «Стенограф».</figcaption>
+        </figure>
+      </div>
+
+      <div class="card">
+        <h2 id="feedback-title">Напишите нам</h2>
+        <p class="muted">Ответим в течение рабочего дня. Поля, отмеченные <span class="field__required" aria-hidden="true">*</span><span class="visually-hidden">звёздочкой</span>, обязательны.</p>
+
+        <form class="form" id="feedback-form" novalidate aria-labelledby="feedback-title">
+          <div class="form__row">
+            <div class="field">
+              <label class="field__label" for="feedback-name">
+                Имя <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input class="field__input" id="feedback-name" name="name" type="text" autocomplete="name"
+                     required minlength="2" maxlength="60" aria-describedby="feedback-name-error">
+              <p class="field__error" id="feedback-name-error"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="feedback-email">
+                E-mail <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input class="field__input" id="feedback-email" name="email" type="email" autocomplete="email"
+                     required aria-describedby="feedback-email-error">
+              <p class="field__error" id="feedback-email-error"></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="feedback-topic">Тема</label>
+            <select class="field__input" id="feedback-topic" name="topic">
+              <option>Вопрос о заказе</option>
+              <option>Тарифы и цены</option>
+              <option>Договор для компании</option>
+              <option>Качество расшифровки</option>
+              <option>Другое</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="feedback-message">
+              Сообщение <span class="field__required" aria-hidden="true">*</span>
+            </label>
+            <textarea class="field__input" id="feedback-message" name="message" rows="5" required minlength="10" maxlength="1000"
+                      aria-describedby="feedback-message-error"></textarea>
+            <p class="field__error" id="feedback-message-error"></p>
+          </div>
+
+          <div class="field">
+            <label class="checkbox">
+              <input id="feedback-consent" name="consent" type="checkbox" required
+                     data-required="Нужно согласие на обработку данных" aria-describedby="feedback-consent-error">
+              <span>Согласен на обработку персональных данных <span class="field__required" aria-hidden="true">*</span></span>
+            </label>
+            <p class="field__error" id="feedback-consent-error"></p>
+          </div>
+
+          <div class="form__actions">
+            <button class="button button--primary" type="submit">Отправить сообщение</button>
+          </div>
+          <p class="form__success" id="feedback-success" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="faq" aria-labelledby="faq-title">
+    <div class="container faq-layout">
+      <div>
+        <h2 id="faq-title">Частые вопросы</h2>
+        <p class="muted">
+          Не нашли ответ? Напишите через форму выше или позвоните —
+          подскажем, какой тариф подойдёт вашей записи.
+        </p>
+      </div>
+
+      <div class="faq">
+        <details class="faq__item">
+          <summary class="faq__question">Какие форматы файлов вы принимаете?</summary>
+          <div class="faq__answer">
+            <p>Аудио: MP3, WAV, OGG, FLAC, M4A, AAC, WMA, OPUS. Видео: MP4, MKV, AVI, MOV, WEBM, WMV, FLV.
+              Один файл — до 2 ГБ; если больше, пришлите ссылку на облако.</p>
+          </div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Как считается стоимость?</summary>
+          <div class="faq__answer">
+            <p>Длительность записи в минутах умножается на цену услуги за минуту с учётом тарифа и срочности.
+              Минимальный заказ — 300 ₽. От 300 минут — скидка 5%, от 600 минут — 10%.
+              Точную сумму покажет <a href="tariffs.html#calculator">калькулятор</a>.</p>
+          </div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Насколько точна расшифровка?</summary>
+          <div class="faq__answer">
+            <p>Автоматическое распознавание на чистой записи даёт 92–96%. После вычитки редактором
+              (тарифы «Стандарт» и «Бизнес») — до 98–99%. На точность влияют шум, эхо и одновременная речь.</p>
+          </div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Как вы разделяете речь по спикерам?</summary>
+          <div class="faq__answer">
+            <p>Нейросеть определяет, где говорит один и тот же человек, и делит текст на реплики «Спикер 1», «Спикер 2».
+              На тарифах «Стандарт» и «Бизнес» редактор заменяет их на имена — укажите участников в комментарии к заказу.</p>
+          </div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Кто увидит мои записи?</summary>
+          <div class="faq__answer">
+            <p>Файлы обрабатываются на наших серверах в России и не передаются третьим лицам и внешним нейросетям.
+              Доступ есть только у редактора вашего заказа. Удалить файл и расшифровку можно в любой момент,
+              на тарифе «Бизнес» подписываем NDA.</p>
+          </div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Что делать, если в тексте есть ошибки?</summary>
+          <div class="faq__answer">
+            <p>Напишите нам в течение 14 дней — исправим бесплатно. Спорные места мы заранее помечаем
+              как [неразборчиво 00:12:41], чтобы их было легко найти и переслушать.</p>
+          </div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">В каком виде я получу результат?</summary>
+          <div class="faq__answer">
+            <p>Файлы DOCX и Markdown на почту и в личном кабинете, для субтитров — SRT и VTT.
+              По желанию — публичная ссылка на расшифровку, которая открывается без регистрации. Ссылку можно отозвать.</p>
+          </div>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Можно ли оплатить по счёту от юрлица?</summary>
+          <div class="faq__answer">
+            <p>Да. Выставляем счёт, работаем по договору, закрывающие документы отправляем через ЭДО или почтой.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="logo" href="index.html">
+          <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
+          <span>Стенограф</span>
+        </a>
+        <p class="site-footer__text">
+          Расшифровка аудио и видео в текст: совещания, интервью, лекции, вебинары, субтитры и протоколы.
+        </p>
+      </div>
+
+      <nav aria-label="Разделы сайта">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a href="catalog.html">Каталог услуг</a></li>
+          <li><a href="tariffs.html">Тарифы</a></li>
+          <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
+          <li><a href="examples.html">Примеры работ</a></li>
+          <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="contacts.html#faq">Частые вопросы</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="site-footer__title">Популярное</h2>
+        <ul class="site-footer__list">
+          <li><a href="product.html?id=meetings">Расшифровка совещаний</a></li>
+          <li><a href="product.html?id=protocols">Протокол совещания</a></li>
+          <li><a href="product.html?id=interviews">Расшифровка интервью</a></li>
+          <li><a href="product.html?id=subtitles">Создание субтитров</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="site-footer__title">Контакты</h2>
+        <ul class="site-footer__list">
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:zakaz@example.com">zakaz@example.com</a></li>
+          <li>Москва, Новослободская ул., 23</li>
+          <li>Пн–Пт 9:00–20:00, Сб 10:00–16:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>2026</span> Стенограф. Учебный проект, контрольная работа №3.</p>
+      <p>Автор: Брусникин Максим Александрович, ЭФБО-02-25</p>
+    </div>
+  </div>
+</footer>
+
+<a class="back-to-top" href="#top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  <span class="visually-hidden">Наверх</span>
+</a>
+</body>
+</html>
