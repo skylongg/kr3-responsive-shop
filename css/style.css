@@ -10,8 +10,10 @@
  * 4. Утилиты          12. Тарифы               20. CTA-блок
  * 5. Кнопки           13. Калькулятор          21. Подвал
  * 6. Шапка            14. Расшифровки          22. Кнопка «Наверх»
- * 7. Первый экран     15. Формы                23. Уменьшение анимации
- * 8. Секции, карточки 16. Заказ и диалог
+ * 7. Первый экран     15. Формы                23. Новые функции: тема, чат,
+ * 8. Секции, карточки 16. Заказ и диалог           сравнение, промокод, статус
+ *                                               24. Тёмная тема
+ *                                               25. Уменьшение анимации
  */
 
 /* ========== 1. Шрифты ==========
@@ -100,12 +102,14 @@
   --c-navy-line: #24406f;
   --c-accent: #c2410c;
   --c-accent-hover: #9a3412;
+  --c-accent-text: #c2410c; /* оранжевый для текста и ссылок */
   --c-brand: #f2551b;
   --c-brand-soft: #fff1ea;
   --c-bg: #f4fbff;
   --c-surface: #ffffff;
   --c-surface-alt: #eef4fb;
   --c-text: #0a1a34;
+  --c-ink: #0a1a34; /* обводка и текст обычных кнопок */
   --c-muted: #4a5a72;
   --c-border: #d3deec;
   --c-field-border: #7a8ba5;
@@ -218,7 +222,7 @@ ol {
 }
 
 a {
-  color: var(--c-accent);
+  color: var(--c-accent-text);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   transition: color var(--transition);
@@ -349,15 +353,15 @@ button {
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
-  color: var(--c-navy);
+  color: var(--c-ink);
   background: var(--c-surface);
-  border: 2px solid var(--c-navy);
+  border: 2px solid var(--c-ink);
   border-radius: var(--radius-s);
   transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
 }
 
 .button:hover {
-  color: var(--c-navy);
+  color: var(--c-ink);
   background: var(--c-surface-alt);
 }
 
@@ -826,7 +830,7 @@ button {
   width: 48px;
   height: 48px;
   margin-bottom: var(--space-4);
-  color: var(--c-accent);
+  color: var(--c-accent-text);
   background: var(--c-brand-soft);
   border-radius: var(--radius-m);
 }
@@ -949,7 +953,7 @@ button {
 }
 
 .service-card__link:hover {
-  color: var(--c-accent);
+  color: var(--c-accent-text);
 }
 
 .service-card__link:focus-visible {
@@ -1133,7 +1137,7 @@ button {
 .filters__range-value {
   display: block;
   font-weight: 600;
-  color: var(--c-accent);
+  color: var(--c-accent-text);
 }
 
 .catalog-toolbar {
@@ -1271,7 +1275,7 @@ button {
 
 .facts__price {
   font-size: 1.75rem !important;
-  color: var(--c-accent);
+  color: var(--c-accent-text);
 }
 
 .facts__actions {
@@ -1453,7 +1457,7 @@ button {
 .tariff__term {
   margin-bottom: var(--space-4);
   font-weight: 600;
-  color: var(--c-accent);
+  color: var(--c-accent-text);
 }
 
 .tariff__list {
@@ -1542,7 +1546,7 @@ button {
 
 .presets__button:hover {
   border-color: var(--c-accent);
-  color: var(--c-accent);
+  color: var(--c-accent-text);
 }
 
 /* ========== 14. Расшифровки и примеры ========== */
@@ -1855,7 +1859,7 @@ button {
 }
 
 .field__input:hover {
-  border-color: var(--c-navy);
+  border-color: var(--c-ink);
 }
 
 .field__input:focus-visible {
@@ -1947,7 +1951,7 @@ select.field__input {
 }
 
 .choice:hover {
-  border-color: var(--c-navy);
+  border-color: var(--c-ink);
 }
 
 .choice:has(input:checked) {
@@ -2024,7 +2028,7 @@ select.field__input {
 .dropzone__icon {
   width: 48px;
   height: 48px;
-  color: var(--c-accent);
+  color: var(--c-accent-text);
 }
 
 .dropzone__title {
@@ -2451,7 +2455,7 @@ select.field__input {
   height: 28px;
   font-size: 1.25rem;
   font-weight: 500;
-  color: var(--c-accent);
+  color: var(--c-accent-text);
   background: var(--c-brand-soft);
   border-radius: 50%;
   transform: translateY(-50%);
@@ -2504,7 +2508,7 @@ address {
 }
 
 .contact-list__item a:hover {
-  color: var(--c-accent);
+  color: var(--c-accent-text);
 }
 
 .schedule {
@@ -2625,7 +2629,7 @@ address {
 .back-to-top {
   position: fixed;
   right: var(--space-4);
-  bottom: var(--space-4);
+  bottom: 84px;
   z-index: 90;
   display: flex;
   align-items: center;
@@ -2655,7 +2659,412 @@ address {
   transform: none;
 }
 
-/* ========== 23. Уменьшение анимации ========== */
+/* ========== 23. Новые функции ========== */
+
+/* Кнопка темы в шапке */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-left: auto;
+  padding: 0;
+  color: var(--c-on-dark);
+  background: transparent;
+  border: 1px solid var(--c-navy-line);
+  border-radius: var(--radius-s);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--c-navy-light);
+}
+
+.theme-toggle__sun {
+  display: none;
+}
+
+[data-theme='dark'] .theme-toggle__sun {
+  display: block;
+}
+
+[data-theme='dark'] .theme-toggle__moon {
+  display: none;
+}
+
+/* «Наплыв» при смене темы: старая картинка плавно растворяется в новой */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.6s;
+}
+
+/* Сравнение услуг */
+.service-card__compare {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: 0.875rem;
+  color: var(--c-muted);
+  cursor: pointer;
+}
+
+.service-card__compare input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--c-accent);
+}
+
+.compare-bar {
+  position: fixed;
+  left: 50%;
+  bottom: var(--space-4);
+  z-index: 95;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: min(560px, calc(100% - 2 * var(--gutter) - 72px));
+  padding: var(--space-3) var(--space-4);
+  color: var(--c-on-dark);
+  background: var(--c-navy);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-m);
+  transform: translateX(-50%);
+}
+
+.compare-bar[hidden] {
+  display: none;
+}
+
+.compare-bar__count {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.compare-bar .button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dialog--wide {
+  width: min(860px, calc(100% - 2 * var(--gutter)));
+}
+
+/* Промокод: поле и кнопка в строку */
+.promo {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.promo .field__input {
+  flex: 1;
+  min-width: 0;
+  text-transform: uppercase;
+}
+
+.promo__status {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--c-success);
+}
+
+.promo__status:empty {
+  display: none;
+}
+
+.promo__status--error {
+  color: var(--c-error);
+}
+
+/* Статус заказа */
+.status {
+  max-width: 720px;
+}
+
+.status__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.status__form .field__input {
+  flex: 1 1 220px;
+}
+
+.status__result:not(:empty) {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-m);
+}
+
+.status__title {
+  margin-bottom: var(--space-1);
+}
+
+.status__error {
+  margin: 0;
+  color: var(--c-error);
+}
+
+.status__steps {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Этап: кружок слева, пройденные — зелёные, текущий — оранжевый */
+.status__step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--c-muted);
+}
+
+.status__step::before {
+  content: '';
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--c-field-border);
+  border-radius: 50%;
+}
+
+.status__step--done {
+  color: var(--c-text);
+}
+
+.status__step--done::before {
+  background: var(--c-success);
+  border-color: var(--c-success);
+}
+
+.status__step--current {
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.status__step--current::before {
+  background: var(--c-brand);
+  border-color: var(--c-brand);
+}
+
+/* Чат с поддержкой */
+.chat__toggle {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  color: var(--c-on-dark);
+  background: var(--c-navy);
+  border: 2px solid var(--c-brand);
+  border-radius: 50%;
+  box-shadow: var(--shadow-m);
+  cursor: pointer;
+}
+
+.chat__toggle:hover {
+  background: var(--c-navy-light);
+}
+
+.chat__panel {
+  position: fixed;
+  right: var(--space-4);
+  bottom: 84px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  width: min(360px, calc(100% - 2 * var(--space-4)));
+  height: min(480px, calc(100% - 120px));
+  overflow: hidden;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-m);
+}
+
+.chat__panel[hidden] {
+  display: none;
+}
+
+.chat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  color: var(--c-on-dark);
+  background: var(--c-navy);
+}
+
+.chat__title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.chat__subtitle {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--c-on-dark-muted);
+}
+
+.chat__close {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  font-size: 1.5rem;
+  color: var(--c-on-dark);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.chat__messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  overflow-y: auto;
+  background: var(--c-bg);
+}
+
+.chat__message {
+  max-width: 85%;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  border-radius: var(--radius-m);
+}
+
+.chat__message--bot {
+  align-self: flex-start;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+}
+
+.chat__message--user {
+  align-self: flex-end;
+  color: var(--c-on-dark);
+  background: var(--c-accent);
+}
+
+.chat__quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) 0;
+}
+
+.chat__chip {
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--c-accent-text);
+  background: var(--c-brand-soft);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chat__form {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.chat__input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 var(--space-3);
+  font: inherit;
+  color: var(--c-text);
+  background: var(--c-surface);
+  border: 1px solid var(--c-field-border);
+  border-radius: var(--radius-s);
+}
+
+.chat__send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--c-on-dark);
+  background: var(--c-accent);
+  border: 0;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+}
+
+/* ========== 24. Тёмная тема ==========
+   Меняем только переменные — все блоки перекрашиваются сами. */
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --c-navy: #060e1b;
+  --c-navy-light: #11203a;
+  --c-navy-line: #22385c;
+  --c-brand-soft: #3a2116;
+  --c-bg: #0c1626;
+  --c-surface: #13213a;
+  --c-surface-alt: #1a2a47;
+  --c-text: #e6edf7;
+  --c-ink: #e6edf7;
+  --c-accent-text: #fb923c;
+  --c-speaker-0: #fb923c;
+  --c-speaker-2: #2dd4bf;
+  --c-speaker-3: #c084fc;
+  --c-muted: #a7b6cc;
+  --c-border: #2a3e60;
+  --c-field-border: #6a7f9f;
+  --c-success: #4ade80;
+  --c-success-soft: #10301f;
+  --c-error: #f87171;
+  --c-error-soft: #3a1714;
+  --c-star-off: #3b4f72;
+  --c-speaker-1: #9db8ec;
+  --shadow-s: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-m: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Стрелка выпадающего списка — светлая */
+[data-theme='dark'] select.field__input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e6edf7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+[data-theme='dark'] .tag {
+  color: var(--c-text);
+}
+
+/* Иконки услуг тёмные — подкладываем светлую плашку */
+[data-theme='dark'] .service-card__icon,
+[data-theme='dark'] .service-hero__icon {
+  padding: 6px;
+  background: #e6edf7;
+  border-radius: var(--radius-m);
+}
+
+/* ========== 25. Уменьшение анимации ========== */
 
 @media (prefers-reduced-motion: reduce) {
   html {

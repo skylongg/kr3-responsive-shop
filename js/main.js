@@ -95,7 +95,7 @@ const storage = {
 
 /* ---------- Расчёт стоимости ---------- */
 
-function calcOrder({ serviceId, minutes, tariffId, urgencyId }) {
+function calcOrder({ serviceId, minutes, tariffId, urgencyId, promoPercent = 0 }) {
   const service = findService(serviceId) || SERVICES[0];
   const tariff = findTariff(tariffId);
   const urgency = findUrgency(urgencyId);
@@ -104,7 +104,8 @@ function calcOrder({ serviceId, minutes, tariffId, urgencyId }) {
   const rate = service.price * tariff.priceFactor * urgency.priceFactor;
   const subtotal = rate * safeMinutes;
   const discountRule = PRICING.discounts.find((rule) => safeMinutes >= rule.minutes);
-  const discountPercent = discountRule ? discountRule.percent : 0;
+  /* Скидка за объём + скидка по промокоду */
+  const discountPercent = (discountRule ? discountRule.percent : 0) + promoPercent;
   const discount = Math.round((subtotal * discountPercent) / 100);
   const afterDiscount = Math.round(subtotal - discount);
   const total = safeMinutes > 0 ? Math.max(PRICING.minOrder, afterDiscount) : 0;
@@ -137,7 +138,8 @@ function ratingHtml(rating, extra = '') {
     '</span>';
 }
 
-function serviceCardHtml(service) {
+/* compareIds — список выбранных для сравнения (только в каталоге) */
+function serviceCardHtml(service, compareIds) {
   const tags = service.media.map((media) => `<li class="tag">${MEDIA_LABELS[media]}</li>`).join('');
   let badge = '';
   if (service.popularity >= 900) badge = '<span class="service-card__badge">Хит</span>';
@@ -157,6 +159,11 @@ function serviceCardHtml(service) {
         <div class="service-card__meta-item"><dt>Цена</dt><dd>${formatRate(service.price)}</dd></div>
         <div class="service-card__meta-item"><dt>Срок</dt><dd>${formatDeadline(service.hours)}</dd></div>
       </dl>
+      ${Array.isArray(compareIds) ? `
+      <label class="service-card__compare">
+        <input type="checkbox" value="${service.id}" data-compare${compareIds.includes(service.id) ? ' checked' : ''}>
+        Сравнить
+      </label>` : ''}
       <div class="service-card__footer">
         ${ratingHtml(service.rating, reviews)}
         <a class="button button--primary button--small service-card__order" href="order.html?service=${service.id}">
@@ -379,6 +386,60 @@ function initCatalog() {
   if (params.get('q')) search.value = params.get('q');
   if (params.get('media')) setChecked(form, 'media', params.get('media'));
 
+  /* Сравнение: можно выбрать до 3 услуг */
+  const compareIds = [];
+  const compareBar = $('#compare-bar');
+  const compareDialog = $('#compare-dialog');
+
+  const updateCompare = () => {
+    compareBar.hidden = compareIds.length === 0;
+    $('#compare-count').textContent = `Выбрано для сравнения: ${compareIds.length} из 3`;
+    $('#compare-open').disabled = compareIds.length < 2;
+    $$('[data-compare]', list).forEach((box) => {
+      box.disabled = !box.checked && compareIds.length >= 3;
+    });
+  };
+
+  list.addEventListener('change', (event) => {
+    const box = event.target;
+    if (!box.matches('[data-compare]')) return;
+    if (box.checked) compareIds.push(box.value);
+    else compareIds.splice(compareIds.indexOf(box.value), 1);
+    updateCompare();
+  });
+
+  $('#compare-clear').addEventListener('click', () => {
+    compareIds.length = 0;
+    $$('[data-compare]', list).forEach((box) => { box.checked = false; });
+    updateCompare();
+  });
+
+  $('#compare-open').addEventListener('click', () => {
+    const items = compareIds.map(findService);
+    const row = (title, cell) => `<tr><th scope="row">${title}</th>${items.map((item) => `<td>${cell(item)}</td>`).join('')}</tr>`;
+    $('#compare-table').innerHTML = `
+      <table class="table">
+        <caption class="visually-hidden">Сравнение услуг</caption>
+        <thead><tr><th scope="col">Услуга</th>${items.map((item) => `<th scope="col">${escapeHtml(item.title)}</th>`).join('')}</tr></thead>
+        <tbody>
+          ${row('Цена', (item) => formatRate(item.price))}
+          ${row('Срок', (item) => formatDeadline(item.hours))}
+          ${row('Рейтинг', (item) => `${formatNumber(item.rating, 1)} из 5`)}
+          ${row('Отзывы', (item) => item.reviews)}
+          ${row('Тип записи', (item) => item.media.map((media) => MEDIA_LABELS[media]).join(', '))}
+          ${row('', (item) => `<a class="button button--primary button--small" href="order.html?service=${item.id}">Заказать</a>`)}
+        </tbody>
+      </table>`;
+    compareDialog.showModal();
+  });
+
+  $$('[data-dialog-close]', compareDialog).forEach((button) => {
+    button.addEventListener('click', () => compareDialog.close());
+  });
+  compareDialog.addEventListener('click', (event) => {
+    if (event.target === compareDialog) compareDialog.close();
+  });
+
   const render = () => {
     const query = normalize(search.value);
     const media = $$('input[name="media"]:checked', form).map((input) => input.value);
@@ -402,7 +463,8 @@ function initCatalog() {
     };
     result.sort(sorters[sort.value] || sorters.popular);
 
-    list.innerHTML = result.map(serviceCardHtml).join('');
+    list.innerHTML = result.map((service) => serviceCardHtml(service, compareIds)).join('');
+    updateCompare();
     empty.hidden = result.length > 0;
     count.textContent = result.length
       ? `Найдено ${result.length} ${plural(result.length, ['услуга', 'услуги', 'услуг'])}`
@@ -574,6 +636,30 @@ function initOrderForm() {
   setChecked(form, 'urgency', params.get('urgency'));
   if (params.get('minutes')) minutes.value = params.get('minutes');
 
+  /* Промокод */
+  const promoInput = $('#order-promo');
+  const promoStatus = $('#order-promo-status');
+  let promoPercent = 0;
+
+  const applyPromo = () => {
+    const code = promoInput.value.trim().toUpperCase();
+    promoPercent = PROMO_CODES[code] || 0;
+    if (!code) promoStatus.textContent = '';
+    else if (promoPercent) promoStatus.textContent = `Промокод применён: скидка ${promoPercent}%`;
+    else promoStatus.textContent = 'Такого промокода нет';
+    promoStatus.classList.toggle('promo__status--error', Boolean(code) && !promoPercent);
+    renderSummary();
+  };
+
+  $('#order-promo-apply').addEventListener('click', applyPromo);
+  /* Enter в поле промокода применяет его, а не отправляет форму */
+  promoInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      applyPromo();
+    }
+  });
+
   /* Сводка заказа справа от формы */
   const renderSummary = () => {
     const hasService = Boolean(findService(service.value));
@@ -582,8 +668,10 @@ function initOrderForm() {
       serviceId: service.value,
       minutes: valid ? minutes.value : 0,
       tariffId: $('input[name="tariff"]:checked', form).value,
-      urgencyId: $('input[name="urgency"]:checked', form).value
+      urgencyId: $('input[name="urgency"]:checked', form).value,
+      promoPercent
     });
+    $('#summary-promo').textContent = promoPercent ? `−${promoPercent}%` : 'нет';
     $('#summary-service').textContent = hasService ? result.service.title : 'не выбрана';
     $('#summary-tariff').textContent = `${result.tariff.title}, ${result.urgency.title.toLowerCase()} срочность`;
     $('#summary-minutes').textContent = valid ? `${formatNumber(result.minutes)} мин` : 'не указана';
@@ -694,6 +782,8 @@ function initOrderForm() {
       fileInput.setCustomValidity('');
       resetErrors(form);
       $('#order-form-status').textContent = '';
+      promoPercent = 0;
+      promoStatus.textContent = '';
       showFile();
       renderSummary();
     });
@@ -712,9 +802,21 @@ function initOrderForm() {
       serviceId: service.value,
       minutes: minutes.value,
       tariffId: $('input[name="tariff"]:checked', form).value,
-      urgencyId: $('input[name="urgency"]:checked', form).value
+      urgencyId: $('input[name="urgency"]:checked', form).value,
+      promoPercent
     });
     const number = `СТ-${String(Date.now()).slice(-6)}`;
+
+    /* Сохраняем заказ, чтобы потом проверить его статус */
+    const orders = storage.read(ORDERS_KEY, []);
+    orders.push({
+      number,
+      service: result.service.title,
+      total: result.total,
+      createdAt: new Date().toISOString(),
+      readyAt: result.readyAt.toISOString()
+    });
+    storage.write(ORDERS_KEY, orders);
     $('#dialog-number').textContent = number;
     $('#dialog-name').textContent = $('#order-name').value.trim();
     $('#dialog-email').textContent = $('#order-email').value.trim();
@@ -745,6 +847,183 @@ function initOrderForm() {
   dialog.addEventListener('close', () => $('#order-name').focus());
 
   renderSummary();
+}
+
+/* ---------- Статус заказа ---------- */
+
+const ORDERS_KEY = 'stenograf:orders';
+
+function initOrderStatus() {
+  const form = $('#status-form');
+  if (!form) return;
+  const input = $('#status-number');
+  const result = $('#status-result');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    /* Сравниваем только цифры: «СТ-123456», «ст 123456» и «123456» — один заказ */
+    const digits = input.value.replace(/\D/g, '');
+    const orders = [DEMO_ORDER, ...storage.read(ORDERS_KEY, [])];
+    const order = orders.find((item) => digits && item.number.replace(/\D/g, '') === digits);
+
+    if (!order) {
+      result.innerHTML = '<p class="status__error">Заказ с таким номером не найден. Проверьте номер из письма.</p>';
+      return;
+    }
+
+    const created = new Date(order.createdAt);
+    const ready = new Date(order.readyAt);
+    const progress = (Date.now() - created) / (ready - created);
+    const current = ORDER_STAGES.findIndex((stage) => progress < stage.until);
+    const finished = current === ORDER_STAGES.length - 1;
+
+    const steps = ORDER_STAGES.map((stage, index) => {
+      let modifier = '';
+      if (index < current || finished) modifier = ' status__step--done';
+      else if (index === current) modifier = ' status__step--current';
+      return `<li class="status__step${modifier}"${index === current ? ' aria-current="step"' : ''}>${stage.title}</li>`;
+    }).join('');
+
+    result.innerHTML = `
+      <h3 class="status__title">Заказ ${escapeHtml(order.number)}</h3>
+      <p class="muted">${escapeHtml(order.service)}, ${formatPrice(order.total)}</p>
+      <ol class="status__steps">${steps}</ol>
+      <p>Срок готовности: <strong>${formatDateTime(ready)}</strong></p>`;
+  });
+}
+
+/* ---------- Тёмная тема ---------- */
+
+const THEME_KEY = 'stenograf-theme';
+
+function initTheme() {
+  const header = $('.site-header__inner');
+  if (!header) return;
+  const root = document.documentElement;
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'theme-toggle';
+  button.innerHTML = `
+    <svg class="theme-toggle__moon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+    <svg class="theme-toggle__sun" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <span class="visually-hidden">Тёмная тема</span>`;
+
+  const update = () => button.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+
+  const switchTheme = () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try {
+      localStorage.setItem(THEME_KEY, root.dataset.theme);
+    } catch (error) {
+      /* Хранилище недоступно — тема просто не запомнится */
+    }
+    update();
+  };
+
+  button.addEventListener('click', () => {
+    /* Плавный «наплыв» старой темы в новую, если браузер это умеет */
+    if (document.startViewTransition) document.startViewTransition(switchTheme);
+    else switchTheme();
+  });
+
+  header.insertBefore(button, $('.site-header__toggle', header));
+  update();
+}
+
+/* ---------- Чат с поддержкой ---------- */
+
+function initChat() {
+  const chat = document.createElement('div');
+  chat.className = 'chat';
+  chat.innerHTML = `
+    <section class="chat__panel" id="chat-panel" aria-label="Чат с поддержкой" hidden>
+      <div class="chat__head">
+        <div>
+          <p class="chat__title">Поддержка «Стенографа»</p>
+          <p class="chat__subtitle">Обычно отвечаем за пару минут</p>
+        </div>
+        <button class="chat__close" type="button" aria-label="Закрыть чат">×</button>
+      </div>
+      <div class="chat__messages" role="log" aria-live="polite"></div>
+      <div class="chat__quick">
+        <button class="chat__chip" type="button">Сколько стоит?</button>
+        <button class="chat__chip" type="button">Какие сроки?</button>
+        <button class="chat__chip" type="button">Какие форматы?</button>
+      </div>
+      <form class="chat__form">
+        <input class="chat__input" type="text" name="message" maxlength="300" autocomplete="off"
+               placeholder="Напишите вопрос" aria-label="Ваш вопрос">
+        <button class="chat__send" type="submit" aria-label="Отправить">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+    </section>
+    <button class="chat__toggle" type="button" aria-expanded="false" aria-controls="chat-panel">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>
+      <span class="visually-hidden">Чат с поддержкой</span>
+    </button>`;
+  document.body.appendChild(chat);
+
+  const panel = $('.chat__panel', chat);
+  const toggle = $('.chat__toggle', chat);
+  const messages = $('.chat__messages', chat);
+  const form = $('.chat__form', chat);
+  const input = $('.chat__input', chat);
+
+  const addMessage = (text, from) => {
+    const message = document.createElement('p');
+    message.className = `chat__message chat__message--${from}`;
+    message.textContent = text;
+    messages.appendChild(message);
+    messages.scrollTop = messages.scrollHeight;
+  };
+
+  /* Бот ищет в вопросе ключевые слова и отвечает готовым текстом */
+  const answer = (question) => {
+    const text = normalize(question);
+    const found = CHAT_ANSWERS.find((item) => item.words.some((word) => text.includes(normalize(word))));
+    if (found) return found.text;
+    return 'Спасибо за вопрос! Оператор подключится в течение 5 минут. Можно также позвонить: +7 (495) 123-45-67.';
+  };
+
+  const ask = (question) => {
+    addMessage(question, 'user');
+    window.setTimeout(() => addMessage(answer(question), 'bot'), 600);
+  };
+
+  const setOpen = (open) => {
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open && !messages.children.length) {
+      addMessage('Здравствуйте! Я помогу с ценами, сроками и форматами файлов. Что вас интересует?', 'bot');
+    }
+    if (open) input.focus();
+  };
+
+  toggle.addEventListener('click', () => setOpen(panel.hidden));
+  $('.chat__close', chat).addEventListener('click', () => {
+    setOpen(false);
+    toggle.focus();
+  });
+  chat.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !panel.hidden) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  $$('.chat__chip', chat).forEach((chip) => {
+    chip.addEventListener('click', () => ask(chip.textContent));
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+    input.value = '';
+    ask(question);
+  });
 }
 
 /* ---------- Форма обратной связи ---------- */
@@ -895,14 +1174,17 @@ function initExamples() {
 /* ---------- Запуск ---------- */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initNavigation();
   initBackToTop();
+  initChat();
   initYear();
   initPopular();
   initCatalog();
   initServicePage();
   initCalculator();
   initOrderForm();
+  initOrderStatus();
   initFeedbackForm();
   initReviews();
   initExamples();

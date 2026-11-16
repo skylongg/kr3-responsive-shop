@@ -7,13 +7,17 @@
   <meta name="description" content="Расшифровка совещаний, интервью, лекций и вебинаров, субтитры и протоколы. Разделение по спикерам, таймкоды, вычитка редактором. От 7 ₽ за минуту.">
   <meta name="theme-color" content="#0a1a34">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css?v=2">
-  <link rel="stylesheet" href="css/responsive.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/responsive.css?v=3">
   <script>
     /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
        Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
        браузер блокирует такой запрос и пишет ошибку в консоль. */
     document.documentElement.classList.add('js');
+    /* Тёмная тема, если её выбрали раньше */
+    try {
+      if (localStorage.getItem('stenograf-theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+    } catch (e) {}
     if (location.protocol !== 'file:') {
       var fontPreload = document.createElement('link');
       fontPreload.rel = 'preload';
@@ -24,8 +28,8 @@
       document.head.appendChild(fontPreload);
     }
   </script>
-  <script src="js/data.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="js/data.js?v=3" defer></script>
+  <script src="js/main.js?v=3" defer></script>
 </head>
 <body id="top">
 <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -412,6 +416,7 @@
           <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
           <li><a href="examples.html">Примеры работ</a></li>
           <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="order.html#status">Статус заказа</a></li>
           <li><a href="contacts.html#faq">Частые вопросы</a></li>
         </ul>
       </nav>

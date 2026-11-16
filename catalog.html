@@ -7,13 +7,17 @@
   <meta name="description" content="Расшифровка совещаний, интервью, лекций, вебинаров, звонков и подкастов, создание субтитров и протоколов. Поиск, фильтры по типу записи, сроку и цене.">
   <meta name="theme-color" content="#0a1a34">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css?v=2">
-  <link rel="stylesheet" href="css/responsive.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/responsive.css?v=3">
   <script>
     /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
        Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
        браузер блокирует такой запрос и пишет ошибку в консоль. */
     document.documentElement.classList.add('js');
+    /* Тёмная тема, если её выбрали раньше */
+    try {
+      if (localStorage.getItem('stenograf-theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+    } catch (e) {}
     if (location.protocol !== 'file:') {
       var fontPreload = document.createElement('link');
       fontPreload.rel = 'preload';
@@ -24,8 +28,8 @@
       document.head.appendChild(fontPreload);
     }
   </script>
-  <script src="js/data.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="js/data.js?v=3" defer></script>
+  <script src="js/main.js?v=3" defer></script>
 </head>
 <body id="top">
 <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -159,6 +163,23 @@
   </div>
 </main>
 
+<!-- Панель сравнения появляется, когда отмечена хотя бы одна услуга -->
+<div class="compare-bar" id="compare-bar" hidden>
+  <p class="compare-bar__count" id="compare-count"></p>
+  <button class="button button--primary button--small" id="compare-open" type="button">Сравнить</button>
+  <button class="button button--small" id="compare-clear" type="button">Очистить</button>
+</div>
+
+<dialog class="dialog dialog--wide" id="compare-dialog" aria-labelledby="compare-title">
+  <div class="dialog__inner">
+    <button class="dialog__close" type="button" data-dialog-close aria-label="Закрыть окно">
+      <span aria-hidden="true">×</span>
+    </button>
+    <h2 class="dialog__title" id="compare-title">Сравнение услуг</h2>
+    <div class="table-wrap" id="compare-table"></div>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="container">
     <div class="site-footer__grid">
@@ -181,6 +202,7 @@
           <li><a href="tariffs.html#calculator">Калькулятор стоимости</a></li>
           <li><a href="examples.html">Примеры работ</a></li>
           <li><a href="order.html">Оформить заказ</a></li>
+          <li><a href="order.html#status">Статус заказа</a></li>
           <li><a href="contacts.html#faq">Частые вопросы</a></li>
         </ul>
       </nav>
