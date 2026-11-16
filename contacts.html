@@ -7,8 +7,8 @@
   <meta name="description" content="Адрес, телефон, почта и график работы сервиса расшифровки «Стенограф». Форма обратной связи и ответы на частые вопросы.">
   <meta name="theme-color" content="#0a1a34">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/responsive.css?v=2">
   <script>
     /* Отметка «JavaScript включён» — до отрисовки, чтобы меню и фильтры не мигали.
        Предзагрузка шрифта только по http(s): при открытии файла с диска (file://)
@@ -119,13 +119,6 @@
             </tbody>
           </table>
         </div>
-
-        <figure class="map">
-          <iframe src="https://yandex.ru/map-widget/v1/?ll=37.598501%2C55.781510&amp;z=16&amp;pt=37.598501%2C55.781510%2Cpm2rdm"
-                  width="800" height="400" loading="lazy" allowfullscreen
-                  title="Яндекс Карта: Москва, Новослободская ул., 23"></iframe>
-          <figcaption>5 минут пешком от метро «Менделеевская», офис 410 на 4 этаже. Вход со двора, на ресепшене назовите «Стенограф».</figcaption>
-        </figure>
       </div>
 
       <div class="card">
@@ -187,6 +180,15 @@
           <p class="form__success" id="feedback-success" role="status"></p>
         </form>
       </div>
+    </div>
+    <!-- Карта на всю ширину под контактами и формой -->
+    <div class="container">
+      <figure class="map">
+        <iframe src="https://yandex.ru/map-widget/v1/?ll=37.598501%2C55.781510&amp;z=16&amp;pt=37.598501%2C55.781510%2Cpm2rdm"
+                loading="lazy" allowfullscreen
+                title="Яндекс Карта: Москва, Новослободская ул., 23"></iframe>
+        <figcaption>5 минут пешком от метро «Менделеевская», офис 410 на 4 этаже. Вход со двора, на ресепшене назовите «Стенограф».</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -266,7 +268,7 @@
 <footer class="site-footer">
   <div class="container">
     <div class="site-footer__grid">
-      <div>
+      <div class="site-footer__about">
         <a class="logo" href="index.html">
           <img class="logo__mark" src="images/logo.svg" alt="" width="36" height="36">
           <span>Стенограф</span>

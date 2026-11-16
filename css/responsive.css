@@ -190,6 +190,11 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* На планшете описание сверху, разделы и контакты под ним в 2 колонки */
+  .site-footer__about {
+    grid-column: 1 / -1;
+  }
+
   .site-footer__bottom {
     flex-direction: row;
     justify-content: space-between;
@@ -370,6 +375,10 @@
 
   .site-footer__grid {
     grid-template-columns: 2fr 1fr 1.3fr;
+  }
+
+  .site-footer__about {
+    grid-column: auto;
   }
 }
 

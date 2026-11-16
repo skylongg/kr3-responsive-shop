@@ -2477,6 +2477,11 @@ select.field__input {
   gap: var(--space-5);
 }
 
+/* Убираем курсив, который браузер ставит для address */
+address {
+  font-style: normal;
+}
+
 .contact-list {
   display: grid;
   gap: var(--space-4);
@@ -2507,7 +2512,7 @@ select.field__input {
 }
 
 .map {
-  margin: var(--space-5) 0 0;
+  margin: var(--space-6) 0 0;
 }
 
 .map iframe {
