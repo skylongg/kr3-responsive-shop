@@ -2510,10 +2510,12 @@ select.field__input {
   margin: var(--space-5) 0 0;
 }
 
-.map img {
+.map iframe {
+  display: block;
   width: 100%;
-  border-radius: var(--radius-m);
+  height: 400px;
   border: 1px solid var(--c-border);
+  border-radius: var(--radius-m);
 }
 
 .map figcaption {
@@ -2580,6 +2582,18 @@ select.field__input {
   margin-bottom: var(--space-2);
 }
 
+.site-footer__contacts li {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Иконки контактов в подвале */
+.site-footer__icon {
+  flex: none;
+  margin-top: 3px;
+  color: var(--c-brand);
+}
+
 .site-footer a {
   color: var(--c-on-dark-muted);
 }
@@ -2616,7 +2630,8 @@ select.field__input {
   color: var(--c-on-dark);
   text-decoration: none;
   background: var(--c-accent);
-  border-radius: 50%;
+  border: 2px solid var(--c-on-dark);
+  border-radius: var(--radius-m);
   box-shadow: var(--shadow-m);
   opacity: 0;
   visibility: hidden;

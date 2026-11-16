@@ -369,7 +369,7 @@
   }
 
   .site-footer__grid {
-    grid-template-columns: 2fr 1fr 1fr 1.3fr;
+    grid-template-columns: 2fr 1fr 1.3fr;
   }
 }
 
